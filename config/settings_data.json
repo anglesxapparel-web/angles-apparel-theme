@@ -1,8 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_accent": "#c8a96e",
     "color_background": "#0a0a0a",
     "color_text": "#f4f1ec",
-    "heading_font": "cormorant"
+    "heading_font": "cormorant",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "text": "Free shipping on orders over $150 · New collection dropping soon"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "tag": "SS 2026 Collection",
+          "title_line1": "Precision",
+          "title_line2": "in every",
+          "title_line3": "Angle.",
+          "subtitle": "Engineered for those who move with intention. Where performance architecture meets editorial craft.",
+          "cta_text": "Explore Collection",
+          "cta_url": "",
+          "secondary_text": "Our Story",
+          "secondary_url": "",
+          "accent_text": "Premium Athletic Lifestyle"
+        }
+      },
+      "philosophy": {
+        "type": "philosophy",
+        "settings": {
+          "label": "Our Philosophy",
+          "heading": "The geometry of\nhuman movement\nis our blueprint.",
+          "body_1": "We don't make clothes for the gym. We make clothes for the person you become when you leave it — refined, intentional, ready for whatever the day demands.",
+          "body_2": "Angles Apparel was built on a singular conviction: that premium performance wear should feel as deliberate as couture, as functional as a second skin.",
+          "stat1_num": "4",
+          "stat1_suffix": "K+",
+          "stat1_label": "Global Members",
+          "stat2_num": "38",
+          "stat2_suffix": "+",
+          "stat2_label": "Material Partners",
+          "stat3_num": "2",
+          "stat3_suffix": "yr",
+          "stat3_label": "R&D Per Collection"
+        }
+      },
+      "features-strip": {
+        "type": "features-strip",
+        "settings": {}
+      },
+      "editorial-feature": {
+        "type": "editorial-feature",
+        "settings": {
+          "overlay_word": "Studio",
+          "label": "The Studio Collection",
+          "heading": "Crafted for the\nspace between\nintensity & elegance.",
+          "body": "Studio is our most versatile line — a seamless transition from movement to moment. Designed for those who take their mornings seriously and their evenings in stride.",
+          "cta_text": "Discover Studio",
+          "cta_url": ""
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "heading": "Move with [em]purpose.[/em]",
+          "body": "Early access to drops, editorial features, and member events. No noise — only signal.",
+          "placeholder": "Your email address",
+          "button_text": "Join"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "instagram": "https://instagram.com",
+          "tiktok": "https://tiktok.com",
+          "pinterest": "https://pinterest.com"
+        }
+      }
+    },
+    "content_for_index": []
   }
 }
