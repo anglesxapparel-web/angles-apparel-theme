@@ -22,7 +22,9 @@
       },
       "header": {
         "type": "header",
-        "settings": {}
+        "settings": {
+          "account_url": "https://shopify.com/43480285340/account"
+        }
       },
       "hero": {
         "type": "hero",
@@ -67,6 +69,7 @@
           "overlay_word": "Studio",
           "label": "The Studio Collection",
           "heading": "Crafted for the\nspace between\nintensity & elegance.",
+          "heading_em": "space between intensity & elegance.",
           "body": "Studio is our most versatile line — a seamless transition from movement to moment. Designed for those who take their mornings seriously and their evenings in stride.",
           "cta_text": "Discover Studio",
           "cta_url": ""
@@ -87,6 +90,14 @@
           "instagram": "https://instagram.com",
           "tiktok": "https://tiktok.com",
           "pinterest": "https://pinterest.com"
+        }
+      },
+      "featured-products": {
+        "type": "featured-products",
+        "settings": {
+          "heading": "The Signature",
+          "heading_em": "Edit",
+          "collection": "signature-set"
         }
       }
     },
