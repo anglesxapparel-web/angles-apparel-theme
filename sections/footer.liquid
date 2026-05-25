@@ -20,7 +20,6 @@
         <li><a href="/pages/about">Our Story</a></li>
         <li><a href="/pages/sustainability">Sustainability</a></li>
         <li><a href="/blogs/journal">Journal</a></li>
-        <li><a href="/pages/careers">Careers</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -36,9 +35,15 @@
   <div class="footer-bottom">
     <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
     <div class="footer-socials">
-      <a href="{{ section.settings.instagram }}" target="_blank">Instagram</a>
-      <a href="{{ section.settings.tiktok }}" target="_blank">TikTok</a>
-      <a href="{{ section.settings.pinterest }}" target="_blank">Pinterest</a>
+      {% if section.settings.instagram != blank %}
+        <a href="{{ section.settings.instagram }}" target="_blank">Instagram</a>
+      {% endif %}
+      {% if section.settings.tiktok != blank %}
+        <a href="{{ section.settings.tiktok }}" target="_blank">TikTok</a>
+      {% endif %}
+      {% if section.settings.pinterest != blank %}
+        <a href="{{ section.settings.pinterest }}" target="_blank">Pinterest</a>
+      {% endif %}
     </div>
   </div>
 </footer>
@@ -47,9 +52,9 @@
 {
   "name": "Footer",
   "settings": [
-    { "type": "text", "id": "instagram", "label": "Instagram URL", "default": "https://instagram.com" },
-    { "type": "text", "id": "tiktok", "label": "TikTok URL", "default": "https://tiktok.com" },
-    { "type": "text", "id": "pinterest", "label": "Pinterest URL", "default": "https://pinterest.com" }
+    { "type": "text", "id": "instagram", "label": "Instagram URL" },
+    { "type": "text", "id": "tiktok", "label": "TikTok URL" },
+    { "type": "text", "id": "pinterest", "label": "Pinterest URL" }
   ]
 }
 {% endschema %}

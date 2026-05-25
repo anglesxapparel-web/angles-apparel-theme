@@ -1,0 +1,72 @@
+<style>
+.returns-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; margin: 3rem 0 5rem; }
+.returns-step { background: #0d0c0a; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.05); position: relative; }
+.returns-step-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: rgba(200,169,110,0.15); line-height: 1; margin-bottom: 1rem; }
+.returns-step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; margin-bottom: 0.75rem; }
+.returns-step p { font-size: 0.75rem; color: var(--muted); line-height: 1.9; }
+</style>
+
+<div class="info-page">
+  <div class="reveal">
+    <span class="section-label">Returns & Exchanges</span>
+    <h1>Our Returns <em>Policy</em></h1>
+    <p class="intro">We want you to love every piece. If something isn't right, we offer free returns within 60 days of purchase on all full-price items — no questions asked.</p>
+  </div>
+
+  <div class="returns-steps reveal">
+    <div class="returns-step">
+      <div class="returns-step-num">01</div>
+      <h3>Start Your Return</h3>
+      <p>Visit our returns portal and enter your order number and email address to generate a prepaid return label.</p>
+    </div>
+    <div class="returns-step">
+      <div class="returns-step-num">02</div>
+      <h3>Pack & Ship</h3>
+      <p>Pack the item securely in its original packaging with tags attached. Drop it off at any UPS location.</p>
+    </div>
+    <div class="returns-step">
+      <div class="returns-step-num">03</div>
+      <h3>Refund Processed</h3>
+      <p>Once we receive and inspect your return, your refund will be processed within 5–7 business days to your original payment method.</p>
+    </div>
+  </div>
+
+  <div class="info-section reveal">
+    <h2>Return <em>Eligibility</em></h2>
+    <p>To be eligible for a return, items must be:</p>
+    <table class="info-table">
+      <thead><tr><th>Condition</th><th>Eligible</th></tr></thead>
+      <tbody>
+        <tr><td>Unworn and unwashed</td><td>✓ Yes</td></tr>
+        <tr><td>Original tags attached</td><td>✓ Yes</td></tr>
+        <tr><td>Returned within 60 days</td><td>✓ Yes</td></tr>
+        <tr><td>Full-price items</td><td>✓ Yes</td></tr>
+        <tr><td>Sale or discounted items</td><td>✗ Final sale</td></tr>
+        <tr><td>Worn, washed, or damaged</td><td>✗ Not eligible</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-section reveal">
+    <h2><em>Exchanges</em></h2>
+    <p>We offer exchanges for a different size or colour of the same item, subject to availability. To request an exchange, start your return as normal and select "Exchange" in the returns portal. We'll ship your new item once we receive your return.</p>
+  </div>
+
+  <div class="info-section reveal">
+    <h2>Faulty or Incorrect <em>Items</em></h2>
+    <p>If you've received a faulty or incorrect item, please <a href="/pages/contact" style="color:var(--warm);">contact us</a> within 7 days of delivery with your order number and a photo of the issue. We'll arrange a replacement or full refund at no cost to you.</p>
+  </div>
+
+  <div class="info-section reveal">
+    <h2>Refund <em>Timeline</em></h2>
+    <p>Once we receive your return, please allow 5–7 business days for your refund to be processed. Depending on your bank, it may take an additional 3–5 business days to appear in your account.</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Returns Page",
+  "settings": [],
+  "presets": [{ "name": "Returns Page" }]
+}
+{% endschema %}

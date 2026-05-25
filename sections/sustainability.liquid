@@ -1,0 +1,97 @@
+<style>
+.sustain-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 60vh; margin-bottom: 0; }
+.sustain-hero-content { display: flex; flex-direction: column; justify-content: center; padding: 6rem 5rem 6rem 4rem; }
+.sustain-hero-content h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; line-height: 1; margin-bottom: 1.5rem; }
+.sustain-hero-content h1 em { font-style: italic; color: var(--warm); }
+.sustain-hero-content p { font-size: 0.85rem; color: var(--muted); line-height: 2; max-width: 400px; }
+.sustain-hero-img { position: relative; overflow: hidden; background: #111; }
+.sustain-hero-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75) contrast(1.05); }
+.sustain-hero-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--ink) 0%, transparent 20%); }
+.sustain-pillars { padding: 8rem 4rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px; }
+.sustain-pillar { background: #0d0c0a; padding: 4rem; border: 1px solid rgba(255,255,255,0.05); }
+.sustain-pillar h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 1rem; }
+.sustain-pillar h2 em { font-style: italic; color: var(--warm); }
+.sustain-pillar p { font-size: 0.8rem; color: var(--muted); line-height: 2; margin-bottom: 1rem; }
+.sustain-stat-row { display: flex; gap: 4rem; padding: 8rem 4rem; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); background: #0d0c0a; }
+.sustain-stat { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+.sustain-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--warm); line-height: 1; }
+.sustain-stat-label { font-size: 0.72rem; color: var(--muted); line-height: 1.7; max-width: 200px; }
+.sustain-commitment { padding: 8rem 4rem; max-width: 860px; margin: 0 auto; }
+.sustain-commitment h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; margin-bottom: 2rem; }
+.sustain-commitment h2 em { font-style: italic; color: var(--warm); }
+.sustain-commitment p { font-size: 0.85rem; color: var(--muted); line-height: 2; margin-bottom: 1.5rem; }
+</style>
+
+<div>
+  <div class="sustain-hero">
+    <div class="sustain-hero-content reveal">
+      <span class="section-label">Our Commitment</span>
+      <h1>Built to <em>Last.</em></h1>
+      <p>Sustainability isn't a feature — it's a foundation. Every decision we make considers its impact on people, the planet, and the next generation of athletes.</p>
+    </div>
+    <div class="sustain-hero-img">
+      <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=1000&q=85&auto=format&fit=crop" alt="Sustainability">
+    </div>
+  </div>
+
+  <div class="sustain-pillars">
+    <div class="sustain-pillar reveal">
+      <span class="section-label">Materials</span>
+      <h2>Responsible <em>Sourcing</em></h2>
+      <p>We partner with mills that meet rigorous environmental standards — bluesign® certified factories, recycled polyester from post-consumer plastic, and organic cotton where applicable.</p>
+      <p>Every fabric we use is tested not just for performance, but for its environmental footprint across its entire lifecycle.</p>
+    </div>
+    <div class="sustain-pillar reveal reveal-delay-1">
+      <span class="section-label">Production</span>
+      <h2>Ethical <em>Manufacturing</em></h2>
+      <p>All Angles Apparel pieces are produced in factories that meet Fair Labor Association standards. We audit our supply chain annually and publish our results.</p>
+      <p>We produce in small batches to reduce waste and avoid the overproduction that plagues the fashion industry.</p>
+    </div>
+    <div class="sustain-pillar reveal reveal-delay-1">
+      <span class="section-label">Packaging</span>
+      <h2>Zero Waste <em>Packaging</em></h2>
+      <p>All our packaging is made from 100% recycled or compostable materials. Our mailers are plastic-free. Our hang tags are printed with soy-based inks on FSC-certified paper.</p>
+      <p>We've eliminated single-use plastic from our entire fulfilment process.</p>
+    </div>
+    <div class="sustain-pillar reveal reveal-delay-2">
+      <span class="section-label">Longevity</span>
+      <h2>Built to <em>Outlast</em></h2>
+      <p>The most sustainable garment is one that lasts. We design for durability, not trend cycles. Our pieces are tested to withstand 200+ wash cycles without degradation.</p>
+      <p>We offer a lifetime repair service on all full-price items — because throwing away a garment should always be the last resort.</p>
+    </div>
+  </div>
+
+  <div class="sustain-stat-row reveal">
+    <div class="sustain-stat">
+      <span class="sustain-stat-num">100%</span>
+      <span class="sustain-stat-label">Recycled or compostable packaging across all orders</span>
+    </div>
+    <div class="sustain-stat">
+      <span class="sustain-stat-num">72%</span>
+      <span class="sustain-stat-label">Of our fabrics are made from recycled or organic materials</span>
+    </div>
+    <div class="sustain-stat">
+      <span class="sustain-stat-num">0</span>
+      <span class="sustain-stat-label">Single-use plastics in our fulfilment and packaging process</span>
+    </div>
+    <div class="sustain-stat">
+      <span class="sustain-stat-num">200+</span>
+      <span class="sustain-stat-label">Wash cycles each garment is tested to withstand before release</span>
+    </div>
+  </div>
+
+  <div class="sustain-commitment reveal">
+    <h2>Our <em>Roadmap</em></h2>
+    <p>By 2026, we're committed to making 100% of our collection from certified sustainable materials. By 2028, we aim to be carbon neutral across our entire supply chain.</p>
+    <p>We publish an annual sustainability report so our community can hold us accountable. We don't believe in greenwashing — only in doing the work.</p>
+    <p>Have questions about our sustainability practices? <a href="/pages/contact" style="color:var(--warm);">We'd love to talk.</a></p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Sustainability Page",
+  "settings": [],
+  "presets": [{ "name": "Sustainability Page" }]
+}
+{% endschema %}
