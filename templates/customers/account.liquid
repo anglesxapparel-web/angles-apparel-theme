@@ -1,0 +1,67 @@
+<style>
+.account-page { padding: 10rem 4rem 8rem; }
+.account-layout { display: grid; grid-template-columns: 280px 1fr; gap: 6rem; align-items: start; }
+.account-sidebar { position: sticky; top: 120px; }
+.account-sidebar h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 0.5rem; }
+.account-sidebar h2 em { font-style: italic; color: var(--warm); }
+.account-email { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 2.5rem; }
+.account-nav { display: flex; flex-direction: column; gap: 0; border-top: 1px solid rgba(255,255,255,0.06); }
+.account-nav a { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--muted); text-decoration: none; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); text-transform: uppercase; transition: color 0.3s; display: flex; justify-content: space-between; align-items: center; }
+.account-nav a:hover { color: var(--warm); }
+.account-main h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; margin-bottom: 2.5rem; }
+.account-main h3 em { font-style: italic; color: var(--warm); }
+.orders-table { width: 100%; border-collapse: collapse; }
+.orders-table th { font-family: 'Syncopate', sans-serif; font-size: 0.5rem; letter-spacing: 0.25em; color: var(--warm); text-transform: uppercase; text-align: left; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.orders-table td { font-size: 0.78rem; color: var(--muted); padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+.orders-table td a { color: var(--paper); text-decoration: none; transition: color 0.3s; }
+.orders-table td a:hover { color: var(--warm); }
+.order-status { display: inline-block; font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1px solid rgba(200,169,110,0.3); color: var(--warm); }
+.no-orders { text-align: center; padding: 6rem 0; }
+.no-orders p { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; font-style: italic; color: var(--muted); margin-bottom: 2rem; }
+</style>
+
+<div class="account-page">
+  <div class="account-layout">
+    <div class="account-sidebar reveal">
+      <h2>My <em>Account</em></h2>
+      <p class="account-email">{{ customer.email }}</p>
+      <nav class="account-nav">
+        <a href="{{ routes.account_url }}">Orders</a>
+        <a href="{{ routes.account_addresses_url }}">Addresses</a>
+        <a href="{{ routes.account_logout_url }}">Sign Out</a>
+      </nav>
+    </div>
+    <div class="account-main reveal reveal-delay-1">
+      <h3>Your <em>Orders</em></h3>
+      {% if customer.orders.size > 0 %}
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in customer.orders %}
+              <tr>
+                <td><a href="{{ order.customer_url }}">#{{ order.name }}</a></td>
+                <td>{{ order.created_at | date: "%B %d, %Y" }}</td>
+                <td><span class="order-status">{{ order.fulfillment_status | replace: '_', ' ' }}</span></td>
+                <td>{{ order.total_price | money }}</td>
+                <td><a href="{{ order.customer_url }}">View →</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="no-orders">
+          <p>No orders yet.</p>
+          <a href="{{ routes.collections_url }}" class="btn-primary">Start Shopping</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
