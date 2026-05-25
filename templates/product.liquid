@@ -54,7 +54,7 @@
 
         <div class="product-actions reveal reveal-delay-2">
           <button type="submit" class="btn-primary">Add to Cart</button>
-          <a href="{{ routes.collections_url }}" class="btn-ghost">Continue Shopping</a>
+          <a href="{{ routes.collections_url }}/sets" class="btn-ghost">Continue Shopping</a>
         </div>
       </form>
 
@@ -63,15 +63,11 @@
       <div class="product-meta reveal reveal-delay-3">
         <div class="product-meta-item">
           <span class="product-meta-icon">◈</span>
-          <span class="product-meta-text">Four-way stretch premium fabric. Machine washable.</span>
+          <span class="product-meta-text">Free standard shipping on orders over $150.</span>
         </div>
         <div class="product-meta-item">
           <span class="product-meta-icon">◇</span>
-          <span class="product-meta-text">Free standard shipping on orders over $150. Free returns within 60 days.</span>
-        </div>
-        <div class="product-meta-item">
-          <span class="product-meta-icon">◈</span>
-          <span class="product-meta-text">Designed and developed in partnership with performance athletes.</span>
+          <span class="product-meta-text">Free returns within 60 days of purchase.</span>
         </div>
       </div>
     </div>
@@ -80,7 +76,6 @@
 </div>
 
 <script>
-  // Thumbnail swap
   document.querySelectorAll('.product-gallery-thumb').forEach(thumb => {
     thumb.addEventListener('click', () => {
       const mainImg = document.getElementById('main-product-img');
@@ -93,7 +88,6 @@
     });
   });
 
-  // Size selection
   document.querySelectorAll('.size-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
