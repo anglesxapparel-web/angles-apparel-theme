@@ -10,32 +10,34 @@
 .featured-grid .product-card:first-child { grid-row: span 2; aspect-ratio: auto; }
 </style>
 
+{% assign demo_images = "photo-1518611012118-696072aa579a,photo-1506629082955-511b1aa562c8,photo-1540497077202-7c8a3999166f,photo-1552674605-db6ffd4facb5,photo-1534438327276-14e5300c3a48" | split: "," %}
+{% assign demo_names = "The Apex Jacket,Studio Shorts,Form Tee,Edge Jogger,Contour Set" | split: "," %}
+{% assign demo_types = "Signature,Performance,Essentials,Lifestyle,Performance" | split: "," %}
+{% assign demo_prices = "$348,$148,$95,$195,$265" | split: "," %}
+
 <section class="featured-products">
   <div class="featured-header reveal">
     <h2>The <em>{{ section.settings.collection_title }}</em> Edit</h2>
-    <a href="{{ section.settings.collection.url }}" class="view-all">View All Pieces</a>
+    <a href="{{ section.settings.collection.url | default: routes.collections_url }}" class="view-all">View All Pieces</a>
   </div>
   <div class="featured-grid">
-    {% assign featured = section.settings.collection.products %}
-    {% for product in featured limit: 5 %}
-      <a href="{{ product.url }}" class="product-card reveal reveal-delay-{{ forloop.index0 }}">
-        {% if product.featured_image %}
-          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" loading="lazy">
-        {% else %}
-          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="{{ product.title }}" loading="lazy">
-        {% endif %}
-        <div class="product-info">
-          <p class="product-cat">{{ product.type }}</p>
-          <p class="product-name">{{ product.title }}</p>
-          <p class="product-price">{{ product.price | money }}</p>
-        </div>
-        <span class="product-add">+</span>
-      </a>
+    {% if section.settings.collection != blank %}
+      {% for product in section.settings.collection.products limit: 5 %}
+        <a href="{{ product.url }}" class="product-card reveal reveal-delay-{{ forloop.index0 }}">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" loading="lazy">
+          {% else %}
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="{{ product.title }}" loading="lazy">
+          {% endif %}
+          <div class="product-info">
+            <p class="product-cat">{{ product.type }}</p>
+            <p class="product-name">{{ product.title }}</p>
+            <p class="product-price">{{ product.price | money }}</p>
+          </div>
+          <span class="product-add">+</span>
+        </a>
+      {% endfor %}
     {% else %}
-      {% assign demo_images = "photo-1518611012118-696072aa579a,photo-1506629082955-511b1aa562c8,photo-1540497077202-7c8a3999166f,photo-1552674605-db6ffd4facb5,photo-1534438327276-14e5300c3a48" | split: "," %}
-      {% assign demo_names = "The Apex Jacket,Studio Shorts,Form Tee,Edge Jogger,Contour Set" | split: "," %}
-      {% assign demo_types = "Signature,Performance,Essentials,Lifestyle,Performance" | split: "," %}
-      {% assign demo_prices = "$348,$148,$95,$195,$265" | split: "," %}
       {% for i in (0..4) %}
         <a href="{{ routes.collections_url }}" class="product-card reveal reveal-delay-{{ i }}">
           <img src="https://images.unsplash.com/{{ demo_images[i] }}?w=800&q=80&auto=format&fit=crop&crop=top" alt="{{ demo_names[i] }}" loading="lazy">
@@ -47,8 +49,7 @@
           <span class="product-add">+</span>
         </a>
       {% endfor %}
-    {% endassign %}
-    {% endfor %}
+    {% endif %}
   </div>
 </section>
 
