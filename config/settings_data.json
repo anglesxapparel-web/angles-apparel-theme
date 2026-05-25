@@ -35,9 +35,9 @@
           "title_line3": "Angle.",
           "subtitle": "Engineered for those who move with intention. Where performance architecture meets editorial craft.",
           "cta_text": "Explore Collection",
-          "cta_url": "",
+          "cta_url": "shopify://collections",
           "secondary_text": "Our Story",
-          "secondary_url": "",
+          "secondary_url": "shopify://pages/about-us",
           "accent_text": "Premium Athletic Lifestyle"
         }
       },
