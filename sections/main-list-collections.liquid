@@ -1,0 +1,55 @@
+<style>
+.collections-page { padding: 10rem 4rem 8rem; }
+.collections-page-header { margin-bottom: 5rem; }
+.collections-page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; line-height: 1; margin-bottom: 1rem; }
+.collections-page-header h1 em { font-style: italic; color: var(--warm); }
+.collections-page-header p { font-size: 0.82rem; color: var(--muted); line-height: 1.9; max-width: 500px; }
+.collections-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+.collection-card { position: relative; overflow: hidden; background: #111; aspect-ratio: 3/4; display: block; text-decoration: none; color: var(--paper); }
+.collection-card img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; filter: brightness(0.7) contrast(1.05); transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; }
+.collection-card:hover img { transform: scale(1.04); filter: brightness(0.55) contrast(1.08); }
+.collection-card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 2.5rem; background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 100%); }
+.collection-card-label { font-size: 0.55rem; letter-spacing: 0.25em; color: var(--warm); text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+.collection-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 0.5rem; }
+.collection-card-count { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
+.collection-card-arrow { position: absolute; top: 1.5rem; right: 1.5rem; width: 36px; height: 36px; border: 1px solid rgba(200,169,110,0.4); display: flex; align-items: center; justify-content: center; color: var(--warm); opacity: 0; transform: scale(0.8); transition: all 0.3s; clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%); }
+.collection-card:hover .collection-card-arrow { opacity: 1; transform: scale(1); }
+</style>
+
+<div class="collections-page">
+  <div class="collections-page-header reveal">
+    <span class="section-label">Shop</span>
+    <h1>Our <em>Collections</em></h1>
+    <p>Precision-engineered activewear designed to move with you. Shop by collection below.</p>
+  </div>
+
+  <div class="collections-grid">
+    {% for collection in collections %}
+      {% unless collection.handle == 'frontpage' %}
+        <a href="{{ collection.url }}" class="collection-card reveal reveal-delay-{{ forloop.index0 | modulo: 3 }}">
+          {% if collection.featured_image %}
+            <img src="{{ collection.featured_image | image_url: width: 800 }}" alt="{{ collection.title }}" loading="lazy">
+          {% elsif collection.products.first and collection.products.first.featured_image %}
+            <img src="{{ collection.products.first.featured_image | image_url: width: 800 }}" alt="{{ collection.title }}" loading="lazy">
+          {% else %}
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="{{ collection.title }}" loading="lazy">
+          {% endif %}
+          <div class="collection-card-info">
+            <span class="collection-card-label">Collection</span>
+            <p class="collection-card-title">{{ collection.title }}</p>
+            <p class="collection-card-count">{{ collection.products_count }} {% if collection.products_count == 1 %}piece{% else %}pieces{% endif %}</p>
+          </div>
+          <span class="collection-card-arrow">→</span>
+        </a>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections List",
+  "settings": [],
+  "presets": [{ "name": "Collections List" }]
+}
+{% endschema %}
