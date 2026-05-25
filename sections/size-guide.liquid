@@ -1,0 +1,280 @@
+<style>
+.size-guide-page { padding: 10rem 4rem 8rem; max-width: 1100px; margin: 0 auto; }
+.size-guide-header { margin-bottom: 5rem; }
+.size-guide-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; line-height: 1; margin-bottom: 1rem; }
+.size-guide-header h1 em { font-style: italic; color: var(--warm); }
+.size-guide-header p { font-size: 0.82rem; color: var(--muted); line-height: 1.9; max-width: 540px; }
+
+.gender-tabs { display: flex; gap: 0; margin-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.gender-tab { background: none; border: none; font-family: 'Syncopate', sans-serif; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); padding: 1rem 2.5rem; cursor: pointer; transition: color 0.3s; position: relative; }
+.gender-tab::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: var(--warm); transform: scaleX(0); transition: transform 0.3s; }
+.gender-tab.active { color: var(--warm); }
+.gender-tab.active::after { transform: scaleX(1); }
+
+.gender-panel { display: none; }
+.gender-panel.active { display: block; }
+
+.category-tabs { display: flex; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.category-tab { background: none; border: 1px solid rgba(255,255,255,0.08); color: var(--muted); font-family: 'Jost', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.6rem 1.5rem; cursor: pointer; transition: all 0.3s; }
+.category-tab.active, .category-tab:hover { border-color: var(--warm); color: var(--warm); }
+
+.size-panel { display: none; }
+.size-panel.active { display: block; }
+
+.size-table-wrap { overflow-x: auto; margin-bottom: 4rem; }
+.size-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+.size-table th { font-family: 'Syncopate', sans-serif; font-size: 0.5rem; letter-spacing: 0.25em; color: var(--warm); text-transform: uppercase; text-align: left; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); white-space: nowrap; }
+.size-table td { font-size: 0.78rem; color: var(--muted); padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.04); text-align: left; }
+.size-table tr:hover td { background: rgba(200,169,110,0.03); }
+.size-table td:first-child { color: var(--paper); font-weight: 400; letter-spacing: 0.1em; }
+
+.measure-guide { margin-top: 5rem; padding-top: 4rem; border-top: 1px solid rgba(255,255,255,0.06); }
+.measure-guide h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; margin-bottom: 3rem; }
+.measure-guide h2 em { font-style: italic; color: var(--warm); }
+.measure-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.measure-item { padding: 2rem; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s; }
+.measure-item:hover { border-color: rgba(200,169,110,0.2); }
+.measure-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--paper); }
+.measure-item p { font-size: 0.75rem; color: var(--muted); line-height: 1.9; }
+.measure-icon { font-size: 1.2rem; color: var(--warm); margin-bottom: 1rem; display: block; }
+
+.fit-note { background: rgba(200,169,110,0.05); border: 1px solid rgba(200,169,110,0.15); padding: 1.5rem 2rem; margin-bottom: 3rem; }
+.fit-note p { font-size: 0.78rem; color: var(--muted); line-height: 1.9; }
+.fit-note strong { color: var(--warm); font-weight: 400; }
+</style>
+
+<div class="size-guide-page">
+  <div class="size-guide-header reveal">
+    <span class="section-label">Fit & Sizing</span>
+    <h1>Size <em>Guide</em></h1>
+    <p>All measurements are in inches unless otherwise stated. If you're between sizes, we recommend sizing up for a relaxed fit or sizing down for a compression feel.</p>
+  </div>
+
+  <div class="fit-note reveal">
+    <p><strong>How to measure:</strong> Use a soft measuring tape and measure directly against your skin. Keep the tape parallel to the floor for chest, waist, and hip measurements. See our measurement guide below for full instructions.</p>
+  </div>
+
+  <!-- Gender Tabs -->
+  <div class="gender-tabs reveal">
+    <button class="gender-tab active" onclick="switchGender('women', this)">Women's</button>
+    <button class="gender-tab" onclick="switchGender('men', this)">Men's</button>
+  </div>
+
+  <!-- WOMEN'S -->
+  <div class="gender-panel active" id="panel-women">
+    <div class="category-tabs">
+      <button class="category-tab active" onclick="switchCategory('women', 'tops', this)">Tops</button>
+      <button class="category-tab" onclick="switchCategory('women', 'bottoms', this)">Bottoms</button>
+      <button class="category-tab" onclick="switchCategory('women', 'outerwear', this)">Outerwear</button>
+    </div>
+
+    <div class="size-panel active" id="women-tops">
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>US Size</th>
+              <th>Chest (in)</th>
+              <th>Waist (in)</th>
+              <th>Hips (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>0–2</td><td>31–33</td><td>24–26</td><td>34–36</td></tr>
+            <tr><td>S</td><td>4–6</td><td>33–35</td><td>26–28</td><td>36–38</td></tr>
+            <tr><td>M</td><td>8–10</td><td>35–37</td><td>28–30</td><td>38–40</td></tr>
+            <tr><td>L</td><td>12–14</td><td>37–39</td><td>30–32</td><td>40–42</td></tr>
+            <tr><td>XL</td><td>16–18</td><td>39–41</td><td>32–34</td><td>42–44</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="size-panel" id="women-bottoms">
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>US Size</th>
+              <th>Waist (in)</th>
+              <th>Hips (in)</th>
+              <th>Inseam (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>0–2</td><td>24–26</td><td>34–36</td><td>29</td></tr>
+            <tr><td>S</td><td>4–6</td><td>26–28</td><td>36–38</td><td>29.5</td></tr>
+            <tr><td>M</td><td>8–10</td><td>28–30</td><td>38–40</td><td>30</td></tr>
+            <tr><td>L</td><td>12–14</td><td>30–32</td><td>40–42</td><td>30.5</td></tr>
+            <tr><td>XL</td><td>16–18</td><td>32–34</td><td>42–44</td><td>31</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="size-panel" id="women-outerwear">
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>US Size</th>
+              <th>Chest (in)</th>
+              <th>Shoulder (in)</th>
+              <th>Sleeve (in)</th>
+              <th>Length (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>0–2</td><td>33–35</td><td>14.5</td><td>29</td><td>24</td></tr>
+            <tr><td>S</td><td>4–6</td><td>35–37</td><td>15</td><td>29.5</td><td>24.5</td></tr>
+            <tr><td>M</td><td>8–10</td><td>37–39</td><td>15.5</td><td>30</td><td>25</td></tr>
+            <tr><td>L</td><td>12–14</td><td>39–41</td><td>16</td><td>30.5</td><td>25.5</td></tr>
+            <tr><td>XL</td><td>16–18</td><td>41–43</td><td>16.5</td><td>31</td><td>26</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEN'S -->
+  <div class="gender-panel" id="panel-men">
+    <div class="category-tabs">
+      <button class="category-tab active" onclick="switchCategory('men', 'tops', this)">Tops</button>
+      <button class="category-tab" onclick="switchCategory('men', 'bottoms', this)">Bottoms</button>
+      <button class="category-tab" onclick="switchCategory('men', 'outerwear', this)">Outerwear</button>
+    </div>
+
+    <div class="size-panel active" id="men-tops">
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Chest (in)</th>
+              <th>Waist (in)</th>
+              <th>Shoulder (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>34–36</td><td>28–30</td><td>16</td></tr>
+            <tr><td>S</td><td>36–38</td><td>30–32</td><td>17</td></tr>
+            <tr><td>M</td><td>38–40</td><td>32–34</td><td>18</td></tr>
+            <tr><td>L</td><td>40–42</td><td>34–36</td><td>19</td></tr>
+            <tr><td>XL</td><td>42–44</td><td>36–38</td><td>20</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="size-panel" id="men-bottoms">
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Waist (in)</th>
+              <th>Hips (in)</th>
+              <th>Inseam (in)</th>
+              <th>Thigh (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>28–30</td><td>34–36</td><td>30</td><td>20</td></tr>
+            <tr><td>S</td><td>30–32</td><td>36–38</td><td>30.5</td><td>21</td></tr>
+            <tr><td>M</td><td>32–34</td><td>38–40</td><td>31</td><td>22</td></tr>
+            <tr><td>L</td><td>34–36</td><td>40–42</td><td>31.5</td><td>23</td></tr>
+            <tr><td>XL</td><td>36–38</td><td>42–44</td><td>32</td><td>24</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="size-panel" id="men-outerwear">
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Chest (in)</th>
+              <th>Shoulder (in)</th>
+              <th>Sleeve (in)</th>
+              <th>Length (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>36–38</td><td>17</td><td>32</td><td>27</td></tr>
+            <tr><td>S</td><td>38–40</td><td>18</td><td>32.5</td><td>27.5</td></tr>
+            <tr><td>M</td><td>40–42</td><td>19</td><td>33</td><td>28</td></tr>
+            <tr><td>L</td><td>42–44</td><td>20</td><td>33.5</td><td>28.5</td></tr>
+            <tr><td>XL</td><td>44–46</td><td>21</td><td>34</td><td>29</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Measure -->
+  <div class="measure-guide reveal">
+    <h2>How to <em>Measure</em></h2>
+    <div class="measure-grid">
+      <div class="measure-item reveal">
+        <span class="measure-icon">◈</span>
+        <h3>Chest</h3>
+        <p>Measure around the fullest part of your chest, keeping the tape horizontal and parallel to the floor. Keep arms relaxed at your sides.</p>
+      </div>
+      <div class="measure-item reveal reveal-delay-1">
+        <span class="measure-icon">◇</span>
+        <h3>Waist</h3>
+        <p>Measure around your natural waistline — the narrowest part of your torso, usually just above the belly button. Don't pull the tape too tight.</p>
+      </div>
+      <div class="measure-item reveal reveal-delay-2">
+        <span class="measure-icon">◈</span>
+        <h3>Hips</h3>
+        <p>Stand with feet together and measure around the fullest part of your hips and seat, keeping the tape parallel to the floor.</p>
+      </div>
+      <div class="measure-item reveal reveal-delay-1">
+        <span class="measure-icon">◇</span>
+        <h3>Inseam</h3>
+        <p>Measure from the crotch seam down to the bottom of the leg along the inner leg. Best done with a pair of well-fitting trousers for reference.</p>
+      </div>
+      <div class="measure-item reveal reveal-delay-2">
+        <span class="measure-icon">◈</span>
+        <h3>Shoulder</h3>
+        <p>Measure from the edge of one shoulder across the back to the edge of the other shoulder, keeping the tape straight across.</p>
+      </div>
+      <div class="measure-item reveal reveal-delay-3">
+        <span class="measure-icon">◇</span>
+        <h3>Sleeve</h3>
+        <p>With arm slightly bent, measure from the center back of the neck, across the shoulder, and down to the wrist. Best measured with help.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchGender(gender, btn) {
+  document.querySelectorAll('.gender-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.gender-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + gender).classList.add('active');
+}
+
+function switchCategory(gender, category, btn) {
+  const panel = document.getElementById('panel-' + gender);
+  panel.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+  panel.querySelectorAll('.size-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(gender + '-' + category).classList.add('active');
+}
+</script>
+
+{% schema %}
+{
+  "name": "Size Guide",
+  "settings": [],
+  "presets": [{ "name": "Size Guide" }]
+}
+{% endschema %}
