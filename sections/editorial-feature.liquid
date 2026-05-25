@@ -15,16 +15,18 @@
     {% if section.settings.image %}
       <img src="{{ section.settings.image | image_url: width: 1000 }}" alt="{{ section.settings.heading }}">
     {% else %}
-      <img src="https://images.unsplash.com/photo-1483721310020-03333e577078?w=1000&q=85&auto=format&fit=crop" alt="Studio Collection">
+      <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1000&q=85&auto=format&fit=crop" alt="Collection Feature">
     {% endif %}
     <div class="e-text-overlay">{{ section.settings.overlay_word }}</div>
   </div>
   <div class="editorial-content">
     <span class="section-label reveal">{{ section.settings.label }}</span>
-    <h2 class="reveal">{{ section.settings.heading | newline_to_br }}</h2>
+    <h2 class="reveal">{{ section.settings.heading }} <em>{{ section.settings.heading_em }}</em></h2>
     <div class="angle-divider reveal"></div>
     <p class="reveal reveal-delay-1">{{ section.settings.body }}</p>
-    <a href="{{ section.settings.cta_url }}" class="btn-primary reveal reveal-delay-2" style="width:fit-content;">{{ section.settings.cta_text }}</a>
+    {% if section.settings.cta_url != blank %}
+      <a href="{{ section.settings.cta_url }}" class="btn-primary reveal reveal-delay-2" style="width:fit-content;">{{ section.settings.cta_text }}</a>
+    {% endif %}
   </div>
 </section>
 
@@ -33,11 +35,12 @@
   "name": "Editorial Feature",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Feature Image" },
-    { "type": "text", "id": "overlay_word", "label": "Overlay Word", "default": "Studio" },
-    { "type": "text", "id": "label", "label": "Section Label", "default": "The Studio Collection" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Crafted for the\nspace between\nintensity & elegance." },
-    { "type": "textarea", "id": "body", "label": "Body", "default": "Studio is our most versatile line — a seamless transition from movement to moment. Designed for those who take their mornings seriously and their evenings in stride." },
-    { "type": "text", "id": "cta_text", "label": "CTA Text", "default": "Discover Studio" },
+    { "type": "text", "id": "overlay_word", "label": "Overlay Word", "default": "Signature" },
+    { "type": "text", "id": "label", "label": "Section Label", "default": "The Signature Set" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Crafted for the" },
+    { "type": "text", "id": "heading_em", "label": "Heading Italic", "default": "space between intensity & elegance." },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "The Signature Set is our most versatile line — a seamless transition from movement to moment. Designed for those who take their mornings seriously and their evenings in stride." },
+    { "type": "text", "id": "cta_text", "label": "CTA Text", "default": "Shop the Set" },
     { "type": "url", "id": "cta_url", "label": "CTA URL" }
   ],
   "presets": [{ "name": "Editorial Feature" }]
