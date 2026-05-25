@@ -1,0 +1,64 @@
+<style>
+.featured-products { padding: 6rem 4rem 10rem; }
+.featured-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+.featured-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3.5rem); font-weight: 300; }
+.featured-header h2 em { font-style: italic; color: var(--warm); }
+.view-all { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--muted); text-decoration: none; text-transform: uppercase; border-bottom: 1px solid rgba(122,117,112,0.4); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s; }
+.view-all:hover { color: var(--warm); border-color: var(--warm); }
+.featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+.featured-grid .product-card { aspect-ratio: 3/4; }
+.featured-grid .product-card:first-child { grid-row: span 2; aspect-ratio: auto; }
+</style>
+
+<section class="featured-products">
+  <div class="featured-header reveal">
+    <h2>The <em>{{ section.settings.collection_title }}</em> Edit</h2>
+    <a href="{{ section.settings.collection.url }}" class="view-all">View All Pieces</a>
+  </div>
+  <div class="featured-grid">
+    {% assign featured = section.settings.collection.products %}
+    {% for product in featured limit: 5 %}
+      <a href="{{ product.url }}" class="product-card reveal reveal-delay-{{ forloop.index0 }}">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" loading="lazy">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="{{ product.title }}" loading="lazy">
+        {% endif %}
+        <div class="product-info">
+          <p class="product-cat">{{ product.type }}</p>
+          <p class="product-name">{{ product.title }}</p>
+          <p class="product-price">{{ product.price | money }}</p>
+        </div>
+        <span class="product-add">+</span>
+      </a>
+    {% else %}
+      {% assign demo_images = "photo-1518611012118-696072aa579a,photo-1506629082955-511b1aa562c8,photo-1540497077202-7c8a3999166f,photo-1552674605-db6ffd4facb5,photo-1534438327276-14e5300c3a48" | split: "," %}
+      {% assign demo_names = "The Apex Jacket,Studio Shorts,Form Tee,Edge Jogger,Contour Set" | split: "," %}
+      {% assign demo_types = "Signature,Performance,Essentials,Lifestyle,Performance" | split: "," %}
+      {% assign demo_prices = "$348,$148,$95,$195,$265" | split: "," %}
+      {% for i in (0..4) %}
+        <a href="{{ routes.collections_url }}" class="product-card reveal reveal-delay-{{ i }}">
+          <img src="https://images.unsplash.com/{{ demo_images[i] }}?w=800&q=80&auto=format&fit=crop&crop=top" alt="{{ demo_names[i] }}" loading="lazy">
+          <div class="product-info">
+            <p class="product-cat">{{ demo_types[i] }}</p>
+            <p class="product-name">{{ demo_names[i] }}</p>
+            <p class="product-price">{{ demo_prices[i] }}</p>
+          </div>
+          <span class="product-add">+</span>
+        </a>
+      {% endfor %}
+    {% endassign %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    { "type": "text", "id": "collection_title", "label": "Collection Name", "default": "Apex" },
+    { "type": "collection", "id": "collection", "label": "Collection" }
+  ],
+  "presets": [{ "name": "Featured Products" }]
+}
+{% endschema %}

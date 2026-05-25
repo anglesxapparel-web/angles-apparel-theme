@@ -1,0 +1,68 @@
+<style>
+.newsletter-section {
+  padding: 8rem 4rem;
+  background: #0d0c0a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.newsletter-copy h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; margin-bottom: 0.75rem; }
+.newsletter-copy h2 em { font-style: italic; color: var(--warm); }
+.newsletter-copy p { font-size: 0.78rem; color: var(--muted); line-height: 1.8; max-width: 360px; }
+.newsletter-form-wrap { display: flex; gap: 0; flex: 1; max-width: 500px; }
+.newsletter-input {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-right: none;
+  color: var(--paper);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  padding: 1.1rem 1.5rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.newsletter-input::placeholder { color: var(--muted); }
+.newsletter-input:focus { border-color: rgba(200,169,110,0.4); }
+.newsletter-submit {
+  background: var(--warm);
+  color: var(--ink);
+  border: none;
+  font-family: 'Syncopate', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 1.1rem 2rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  clip-path: polygon(0% 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+.newsletter-submit:hover { background: var(--paper); }
+</style>
+
+<section class="newsletter-section">
+  <div class="newsletter-copy reveal">
+    <h2>{{ section.settings.heading | replace: '[em]', '<em>' | replace: '[/em]', '</em>' }}</h2>
+    <p>{{ section.settings.body }}</p>
+  </div>
+  {% form 'customer', class: 'newsletter-form-wrap reveal reveal-delay-1' %}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    <input type="email" name="contact[email]" class="newsletter-input" placeholder="{{ section.settings.placeholder }}" required>
+    <button type="submit" class="newsletter-submit">{{ section.settings.button_text }}</button>
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading (use [em] and [/em] for italic gold)", "default": "Move with [em]purpose.[/em]" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Early access to drops, editorial features, and member events. No noise — only signal." },
+    { "type": "text", "id": "placeholder", "label": "Input Placeholder", "default": "Your email address" },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Join" }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

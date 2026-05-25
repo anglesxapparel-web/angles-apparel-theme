@@ -1,0 +1,47 @@
+<style>
+.features-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.feature-item { padding: 4rem 3rem; border-right: 1px solid rgba(255,255,255,0.05); transition: background 0.3s; }
+.feature-item:last-child { border-right: none; }
+.feature-item:hover { background: rgba(200,169,110,0.03); }
+.feature-icon { font-size: 1.4rem; margin-bottom: 1.5rem; display: block; }
+.feature-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.75rem; }
+.feature-item p { font-size: 0.75rem; line-height: 1.9; color: var(--muted); }
+</style>
+
+<div class="features-strip">
+  {% for block in section.blocks %}
+    <div class="feature-item reveal reveal-delay-{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+      <span class="feature-icon">{{ block.settings.icon }}</span>
+      <h3>{{ block.settings.title }}</h3>
+      <p>{{ block.settings.body }}</p>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Features Strip",
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji or symbol)", "default": "◈" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Technical Fabric" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "Four-way stretch, moisture-wicking performance textiles sourced from elite mills across Europe and Japan." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Strip",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "◈", "title": "Technical Fabric", "body": "Four-way stretch, moisture-wicking performance textiles sourced from elite mills across Europe and Japan." } },
+        { "type": "feature", "settings": { "icon": "◇", "title": "Precision Cut", "body": "Laser-cut panels and flat-lock seams engineered to move with you, not against you." } },
+        { "type": "feature", "settings": { "icon": "◈", "title": "Considered Design", "body": "Editorial silhouettes with architectural sensibility. Built for the gym, worn beyond it." } },
+        { "type": "feature", "settings": { "icon": "◇", "title": "Free Returns", "body": "60-day complimentary returns on all full-price pieces. No questions, no compromises." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

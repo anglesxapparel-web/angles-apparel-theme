@@ -1,0 +1,63 @@
+<div class="collection-page">
+  <div class="collection-header">
+    <span class="section-label reveal">{{ collection.title }}</span>
+    <h1 class="reveal"><em>{{ collection.title }}</em></h1>
+    {% if collection.description != blank %}
+      <p class="reveal reveal-delay-1">{{ collection.description }}</p>
+    {% endif %}
+  </div>
+
+  <div class="collection-toolbar reveal">
+    <span class="collection-count">{{ collection.products_count }} pieces</span>
+    <div class="collection-sort">
+      <select name="sort_by" id="sort-by">
+        <option value="manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>Featured</option>
+        <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+        <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+        <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Newest</option>
+        <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="products-grid-collection">
+    {% for product in collection.products %}
+      <a href="{{ product.url }}" class="product-card reveal reveal-delay-{{ forloop.index0 | modulo: 3 }}">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" loading="lazy">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="{{ product.title }}" loading="lazy">
+        {% endif %}
+        <div class="product-info">
+          <p class="product-cat">{{ product.type }}</p>
+          <p class="product-name">{{ product.title }}</p>
+          <p class="product-price">{{ product.price | money }}</p>
+        </div>
+        <span class="product-add">+</span>
+      </a>
+    {% else %}
+      <p style="color:var(--muted); padding: 4rem 0; grid-column: span 3; font-size: 0.85rem; letter-spacing: 0.1em;">No products found in this collection.</p>
+    {% endfor %}
+  </div>
+
+  {% if paginate.pages > 1 %}
+    {% paginate collection.products by 12 %}
+      <div style="display:flex; justify-content:center; gap:1rem; margin-top:4rem;">
+        {% if paginate.previous %}
+          <a href="{{ paginate.previous.url }}" class="btn-outline">← Previous</a>
+        {% endif %}
+        {% if paginate.next %}
+          <a href="{{ paginate.next.url }}" class="btn-outline">Next →</a>
+        {% endif %}
+      </div>
+    {% endpaginate %}
+  {% endif %}
+</div>
+
+<script>
+  document.getElementById('sort-by')?.addEventListener('change', function() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('sort_by', this.value);
+    window.location.href = url.toString();
+  });
+</script>

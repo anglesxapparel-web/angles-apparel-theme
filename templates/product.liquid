@@ -1,0 +1,107 @@
+<div class="product-page">
+  <div class="product-layout">
+
+    <!-- Gallery -->
+    <div class="product-gallery reveal">
+      <div class="product-gallery-main">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" id="main-product-img">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="{{ product.title }}" id="main-product-img">
+        {% endif %}
+      </div>
+      {% if product.images.size > 1 %}
+        <div class="product-gallery-thumbs">
+          {% for image in product.images %}
+            <div class="product-gallery-thumb {% if forloop.first %}active{% endif %}">
+              <img src="{{ image | image_url: width: 200 }}" alt="{{ product.title }} - image {{ forloop.index }}" loading="lazy">
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Details -->
+    <div class="product-details">
+      <span class="product-cat section-label">{{ product.type }}</span>
+      <h1 class="reveal">{{ product.title }}</h1>
+      <p class="product-detail-price reveal">{{ product.price | money }}</p>
+
+      {% if product.description != blank %}
+        <div class="product-desc reveal reveal-delay-1">{{ product.description }}</div>
+      {% endif %}
+
+      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="selected-variant" value="{{ product.selected_or_first_available_variant.id }}">
+
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            {% if option.name == 'Size' %}
+              <span class="size-label reveal">Select {{ option.name }}</span>
+              <div class="size-grid reveal reveal-delay-1">
+                {% for value in option.values %}
+                  {% assign variant = product.variants | where: 'option1', value | first %}
+                  <button
+                    type="button"
+                    class="size-btn {% if forloop.first %}active{% endif %}"
+                    data-variant-id="{{ variant.id }}"
+                  >{{ value }}</button>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endunless %}
+
+        <div class="product-actions reveal reveal-delay-2">
+          <button type="submit" class="btn-primary">Add to Cart</button>
+          <a href="{{ routes.collections_url }}" class="btn-ghost">Continue Shopping</a>
+        </div>
+      </form>
+
+      <div class="product-divider reveal"></div>
+
+      <div class="product-meta reveal reveal-delay-3">
+        <div class="product-meta-item">
+          <span class="product-meta-icon">◈</span>
+          <span class="product-meta-text">Four-way stretch premium fabric. Machine washable.</span>
+        </div>
+        <div class="product-meta-item">
+          <span class="product-meta-icon">◇</span>
+          <span class="product-meta-text">Free standard shipping on orders over $150. Free returns within 60 days.</span>
+        </div>
+        <div class="product-meta-item">
+          <span class="product-meta-icon">◈</span>
+          <span class="product-meta-text">Designed and developed in partnership with performance athletes.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Thumbnail swap
+  document.querySelectorAll('.product-gallery-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const mainImg = document.getElementById('main-product-img');
+      if (mainImg) {
+        const thumbSrc = thumb.querySelector('img').src;
+        mainImg.src = thumbSrc.replace('_200x', '_800x');
+      }
+      document.querySelectorAll('.product-gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+  });
+
+  // Size selection
+  document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const variantInput = document.getElementById('selected-variant');
+      if (variantInput && btn.dataset.variantId) {
+        variantInput.value = btn.dataset.variantId;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,55 @@
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="{{ routes.root_url }}" class="nav-logo">{{ shop.name | upcase }}</a>
+      <p>Performance wear built with editorial precision. Move with intention. Live with edge.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Collection</h4>
+      <ul>
+        <li><a href="{{ routes.collections_url }}">All Products</a></li>
+        <li><a href="{{ routes.collections_url }}/new-arrivals">New Arrivals</a></li>
+        <li><a href="{{ routes.collections_url }}/apex-edit">The Apex Edit</a></li>
+        <li><a href="{{ routes.collections_url }}/studio">Studio Line</a></li>
+        <li><a href="{{ routes.collections_url }}/sale">Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/pages/about">Our Story</a></li>
+        <li><a href="/pages/sustainability">Sustainability</a></li>
+        <li><a href="/blogs/journal">Journal</a></li>
+        <li><a href="/pages/careers">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/pages/size-guide">Size Guide</a></li>
+        <li><a href="/pages/shipping">Shipping</a></li>
+        <li><a href="/pages/returns">Returns</a></li>
+        <li><a href="/pages/contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="{{ section.settings.instagram }}" target="_blank">Instagram</a>
+      <a href="{{ section.settings.tiktok }}" target="_blank">TikTok</a>
+      <a href="{{ section.settings.pinterest }}" target="_blank">Pinterest</a>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "instagram", "label": "Instagram URL", "default": "https://instagram.com" },
+    { "type": "text", "id": "tiktok", "label": "TikTok URL", "default": "https://tiktok.com" },
+    { "type": "text", "id": "pinterest", "label": "Pinterest URL", "default": "https://pinterest.com" }
+  ]
+}
+{% endschema %}

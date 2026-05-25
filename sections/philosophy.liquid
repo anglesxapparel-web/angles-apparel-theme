@@ -1,0 +1,65 @@
+<style>
+.philosophy {
+  padding: 10rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 6rem;
+  align-items: start;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.philosophy-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 300; line-height: 1.15; margin-bottom: 2rem; }
+.philosophy-text h2 em { font-style: italic; color: var(--warm); }
+.philosophy-text p { font-size: 0.85rem; line-height: 2; color: var(--muted); max-width: 520px; margin-bottom: 1.5rem; }
+.stat-row { display: flex; gap: 4rem; margin-top: 3.5rem; padding-top: 3.5rem; border-top: 1px solid rgba(255,255,255,0.06); }
+.stat { display: flex; flex-direction: column; gap: 0.4rem; }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--paper); line-height: 1; }
+.stat-num span { color: var(--warm); font-size: 1.5rem; }
+.stat-desc { font-size: 0.65rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+</style>
+
+<section class="philosophy">
+  <div>
+    <span class="section-label reveal">{{ section.settings.label }}</span>
+  </div>
+  <div class="philosophy-text">
+    <h2 class="reveal">{{ section.settings.heading | newline_to_br }}</h2>
+    <p class="reveal reveal-delay-1">{{ section.settings.body_1 }}</p>
+    <p class="reveal reveal-delay-2">{{ section.settings.body_2 }}</p>
+    <div class="stat-row reveal reveal-delay-3">
+      <div class="stat">
+        <span class="stat-num">{{ section.settings.stat1_num }}<span>{{ section.settings.stat1_suffix }}</span></span>
+        <span class="stat-desc">{{ section.settings.stat1_label }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">{{ section.settings.stat2_num }}<span>{{ section.settings.stat2_suffix }}</span></span>
+        <span class="stat-desc">{{ section.settings.stat2_label }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">{{ section.settings.stat3_num }}<span>{{ section.settings.stat3_suffix }}</span></span>
+        <span class="stat-desc">{{ section.settings.stat3_label }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Philosophy",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Section Label", "default": "Our Philosophy" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "The geometry of\nhuman movement\nis our blueprint." },
+    { "type": "textarea", "id": "body_1", "label": "Body Paragraph 1", "default": "We don't make clothes for the gym. We make clothes for the person you become when you leave it — refined, intentional, ready for whatever the day demands." },
+    { "type": "textarea", "id": "body_2", "label": "Body Paragraph 2", "default": "Angles Apparel was built on a singular conviction: that premium performance wear should feel as deliberate as couture, as functional as a second skin." },
+    { "type": "text", "id": "stat1_num", "label": "Stat 1 Number", "default": "4" },
+    { "type": "text", "id": "stat1_suffix", "label": "Stat 1 Suffix", "default": "K+" },
+    { "type": "text", "id": "stat1_label", "label": "Stat 1 Label", "default": "Global Members" },
+    { "type": "text", "id": "stat2_num", "label": "Stat 2 Number", "default": "38" },
+    { "type": "text", "id": "stat2_suffix", "label": "Stat 2 Suffix", "default": "+" },
+    { "type": "text", "id": "stat2_label", "label": "Stat 2 Label", "default": "Material Partners" },
+    { "type": "text", "id": "stat3_num", "label": "Stat 3 Number", "default": "2" },
+    { "type": "text", "id": "stat3_suffix", "label": "Stat 3 Suffix", "default": "yr" },
+    { "type": "text", "id": "stat3_label", "label": "Stat 3 Label", "default": "R&D Per Collection" }
+  ],
+  "presets": [{ "name": "Philosophy" }]
+}
+{% endschema %}

@@ -1,0 +1,60 @@
+{
+  "name": "Angles Apparel Theme Settings",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent Color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text Color",
+      "default": "#f4f1ec"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading Style",
+      "options": [
+        { "value": "cormorant", "label": "Cormorant Garamond (Editorial)" },
+        { "value": "playfair", "label": "Playfair Display" }
+      ],
+      "default": "cormorant"
+    },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "text",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "text",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "text",
+      "id": "pinterest_url",
+      "label": "Pinterest URL"
+    }
+  ]
+}

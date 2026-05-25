@@ -1,0 +1,17 @@
+<div class="announcement-bar">
+  {{ section.settings.text }}
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement Text",
+      "default": "Free shipping on orders over $150 · New collection dropping soon"
+    }
+  ]
+}
+{% endschema %}
