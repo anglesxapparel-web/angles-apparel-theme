@@ -1,6 +1,110 @@
-{{ shop.name | upcase }}
-	•	{% for link in linklists.main-menu.links %}
-	•	{{ link.title }}
-	•	{% endfor %} 
-Account Cart ({{ cart.item_count }}) 
-{% schema %} { "name": "Header", "settings": [ { "type": "text", "id": "account_url", "label": "Account URL", "default": "https://shopify.com/43480285340/account", "info": "Paste your Shopify customer account URL here" } ] } {% endschema %} 
+<style>
+.site-header {
+  position: fixed;
+  top: 32px; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  transition: background 0.4s, top 0.3s;
+}
+.site-header.scrolled {
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(12px);
+  top: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo {
+  font-family: 'Syncopate', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--paper);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links li { margin: 0; padding: 0; }
+.nav-links a {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--paper); }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+.nav-account {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+.nav-account:hover { color: var(--paper); }
+.nav-cart {
+  font-family: 'Syncopate', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--warm);
+  text-decoration: none;
+  border-bottom: 1px solid var(--warm);
+  padding-bottom: 2px;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+.nav-cart:hover { opacity: 0.7; }
+</style>
+
+<header class="site-header" id="site-header">
+  <a href="{{ routes.root_url }}" class="nav-logo">{{ shop.name | upcase }}</a>
+
+  <nav>
+    <ul class="nav-links">
+      {% for link in linklists.main-menu.links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="nav-right">
+    <a href="{{ section.settings.account_url }}" class="nav-account">Account</a>
+    <a href="{{ routes.cart_url }}" class="nav-cart">Cart ({{ cart.item_count }})</a>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "account_url",
+      "label": "Account URL",
+      "default": "https://shopify.com/43480285340/account",
+      "info": "Paste your Shopify customer account URL here"
+    }
+  ]
+}
+{% endschema %}
