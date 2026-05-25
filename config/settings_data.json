@@ -61,6 +61,19 @@
       },
       "features-strip": {
         "type": "features-strip",
+        "blocks": {
+          "feature_Pct6c3": {
+            "type": "feature",
+            "settings": {
+              "icon": "◈",
+              "title": "Technical Fabric",
+              "body": "Four-way stretch, moisture-wicking performance textiles sourced from elite mills across Europe and Japan."
+            }
+          }
+        },
+        "block_order": [
+          "feature_Pct6c3"
+        ],
         "settings": {}
       },
       "editorial-feature": {
