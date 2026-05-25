@@ -24,7 +24,6 @@
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 .faq-item {
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -70,212 +69,81 @@
   padding-bottom: 2rem;
   max-width: 680px;
 }
-.faq-answer-inner a { color: var(--warm); text-decoration: none; border-bottom: 1px solid rgba(200,169,110,0.3); transition: border-color 0.3s; }
-.faq-answer-inner a:hover { border-color: var(--warm); }
-.faq-categories {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 3rem;
-}
-.faq-cat-btn {
-  background: none;
-  border: 1px solid rgba(255,255,255,0.08);
-  color: var(--muted);
-  font-family: 'Jost', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 0.6rem 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.faq-cat-btn.active, .faq-cat-btn:hover {
-  border-color: var(--warm);
-  color: var(--warm);
-}
-.faq-section-title {
-  font-family: 'Syncopate', sans-serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.3em;
-  color: var(--warm);
-  text-transform: uppercase;
-  margin: 3rem 0 0.5rem;
-  display: block;
-}
 </style>
 
 <div class="faq-page">
   <div class="faq-header reveal">
-    <span class="section-label">Support</span>
-    <h1>Frequently Asked <em>Questions</em></h1>
-    <p>Everything you need to know about Angles Apparel. Can't find what you're looking for? <a href="/pages/contact" style="color:var(--warm);">Contact us</a>.</p>
+    <span class="section-label">{{ section.settings.label }}</span>
+    <h1>{{ section.settings.heading }} <em>{{ section.settings.heading_em }}</em></h1>
+    <p>{{ section.settings.subheading }}</p>
   </div>
 
-  <div class="faq-categories reveal">
-    <button class="faq-cat-btn active" data-category="all">All</button>
-    <button class="faq-cat-btn" data-category="orders">Orders & Shipping</button>
-    <button class="faq-cat-btn" data-category="returns">Returns</button>
-    <button class="faq-cat-btn" data-category="sizing">Sizing & Fit</button>
-    <button class="faq-cat-btn" data-category="product">Product</button>
-  </div>
-
-  <div class="faq-list reveal">
-
-    <span class="faq-section-title">Orders & Shipping</span>
-
-    <div class="faq-item" data-category="orders">
-      <button class="faq-question">
-        How long does shipping take?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">Standard shipping takes 5–7 business days. Express shipping (2–3 business days) is available at checkout. Free standard shipping on all orders over $150.</div>
+  <div class="faq-list">
+    {% for block in section.blocks %}
+      <div class="faq-item reveal" {{ block.shopify_attributes }}>
+        <button class="faq-question">
+          {{ block.settings.question }}
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">{{ block.settings.answer }}</div>
+        </div>
       </div>
-    </div>
-
-    <div class="faq-item" data-category="orders">
-      <button class="faq-question">
-        Can I change or cancel my order?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">Orders can be modified or cancelled within 1 hour of placement. After that, our fulfilment team will have already begun processing your order. Please <a href="/pages/contact">contact us</a> as soon as possible and we'll do our best to help.</div>
-      </div>
-    </div>
-
-    <div class="faq-item" data-category="orders">
-      <button class="faq-question">
-        How do I track my order?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">Once your order ships you'll receive a confirmation email with a tracking number. You can use this to track your package directly on the carrier's website.</div>
-      </div>
-    </div>
-
-    <span class="faq-section-title">Returns & Exchanges</span>
-
-    <div class="faq-item" data-category="returns">
-      <button class="faq-question">
-        What is your return policy?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">We offer free returns within 60 days of purchase on all full-price items. Items must be unworn, unwashed, and in original packaging with tags attached. Sale items are final sale.</div>
-      </div>
-    </div>
-
-    <div class="faq-item" data-category="returns">
-      <button class="faq-question">
-        How do I start a return or exchange?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">Visit our <a href="/pages/returns">returns page</a> and enter your order number and email address to generate a prepaid return label. Exchanges can be processed for a different size or colour of the same item.</div>
-      </div>
-    </div>
-
-    <span class="faq-section-title">Sizing & Fit</span>
-
-    <div class="faq-item" data-category="sizing">
-      <button class="faq-question">
-        How do I find my size?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">Visit our <a href="/pages/size-guide">size guide</a> for detailed measurements. Our pieces are designed to be true to size. If you're between sizes, we recommend sizing up for a more relaxed fit or sizing down for a compression feel.</div>
-      </div>
-    </div>
-
-    <div class="faq-item" data-category="sizing">
-      <button class="faq-question">
-        Do your sizes run true to size?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">Yes — Angles Apparel is designed to run true to size. Our four-way stretch fabric accommodates a range of body types. Check the individual product page for any fit notes specific to that piece.</div>
-      </div>
-    </div>
-
-    <span class="faq-section-title">Product</span>
-
-    <div class="faq-item" data-category="product">
-      <button class="faq-question">
-        How should I care for my Angles pieces?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">Machine wash cold on a gentle cycle. Do not tumble dry — lay flat or hang to dry. Do not iron or dry clean. Avoid fabric softeners as they can break down the performance fibres over time.</div>
-      </div>
-    </div>
-
-    <div class="faq-item" data-category="product">
-      <button class="faq-question">
-        What fabrics do you use?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">We source premium performance textiles from elite mills across Europe and Japan. Our fabrics are four-way stretch, moisture-wicking, and squat-proof. Full fabric composition is listed on each individual product page.</div>
-      </div>
-    </div>
-
-    <div class="faq-item" data-category="product">
-      <button class="faq-question">
-        Are your products sustainable?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-inner">Sustainability is a core part of how we build Angles Apparel. We use recycled and responsibly sourced materials wherever possible, and we're committed to reducing our environmental footprint across our entire supply chain. Read more on our <a href="/pages/sustainability">sustainability page</a>.</div>
-      </div>
-    </div>
-
+    {% endfor %}
   </div>
 </div>
 
 <script>
-  // Accordion
   document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
       const answer = item.querySelector('.faq-answer');
       const isOpen = item.classList.contains('open');
 
-      // Close all
       document.querySelectorAll('.faq-item').forEach(i => {
         i.classList.remove('open');
         i.querySelector('.faq-answer').style.maxHeight = '0';
       });
 
-      // Open clicked if it was closed
       if (!isOpen) {
         item.classList.add('open');
         answer.style.maxHeight = answer.scrollHeight + 'px';
       }
     });
   });
-
-  // Category filter
-  document.querySelectorAll('.faq-cat-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const cat = btn.dataset.category;
-      document.querySelectorAll('.faq-item').forEach(item => {
-        if (cat === 'all' || item.dataset.category === cat) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-          item.classList.remove('open');
-          item.querySelector('.faq-answer').style.maxHeight = '0';
-        }
-      });
-
-      // Show/hide section titles
-      document.querySelectorAll('.faq-section-title').forEach(title => {
-        title.style.display = cat === 'all' ? 'block' : 'none';
-      });
-    });
-  });
 </script>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Section Label", "default": "Support" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked" },
+    { "type": "text", "id": "heading_em", "label": "Heading Italic Word (gold)", "default": "Questions" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Everything you need to know about Angles Apparel. Can't find what you're looking for? Contact us." }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "What is your return policy?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "We offer free returns within 60 days of purchase on all full-price items." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Page",
+      "blocks": [
+        { "type": "faq_item", "settings": { "question": "How long does shipping take?", "answer": "Standard shipping takes 5-7 business days. Express shipping (2-3 business days) is available at checkout. Free standard shipping on all orders over $150." } },
+        { "type": "faq_item", "settings": { "question": "Can I change or cancel my order?", "answer": "Orders can be modified or cancelled within 1 hour of placement. After that, our fulfilment team will have already begun processing. Contact us as soon as possible and we'll do our best to help." } },
+        { "type": "faq_item", "settings": { "question": "What is your return policy?", "answer": "We offer free returns within 60 days of purchase on all full-price items. Items must be unworn, unwashed, and in original packaging with tags attached. Sale items are final sale." } },
+        { "type": "faq_item", "settings": { "question": "How do I find my size?", "answer": "Visit our size guide for detailed measurements. Our pieces are designed to be true to size. If you're between sizes, we recommend sizing up for a relaxed fit or sizing down for a compression feel." } },
+        { "type": "faq_item", "settings": { "question": "How should I care for my Angles pieces?", "answer": "Machine wash cold on a gentle cycle. Do not tumble dry, lay flat or hang to dry. Do not iron or dry clean. Avoid fabric softeners as they can break down the performance fibres over time." } },
+        { "type": "faq_item", "settings": { "question": "What fabrics do you use?", "answer": "We source premium performance textiles from elite mills across Europe and Japan. Our fabrics are four-way stretch, moisture-wicking, and squat-proof. Full fabric composition is listed on each product page." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
