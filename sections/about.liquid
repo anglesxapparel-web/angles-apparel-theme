@@ -1,0 +1,130 @@
+<style>
+.about-page { padding: 10rem 0 0; }
+.about-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; }
+.about-hero-content { display: flex; flex-direction: column; justify-content: center; padding: 6rem 5rem 6rem 4rem; }
+.about-hero-content h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 300; line-height: 1; margin-bottom: 2rem; }
+.about-hero-content h1 em { font-style: italic; color: var(--warm); }
+.about-hero-content p { font-size: 0.88rem; color: var(--muted); line-height: 2; max-width: 420px; margin-bottom: 2.5rem; }
+.about-hero-img { position: relative; overflow: hidden; background: #111; }
+.about-hero-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8) contrast(1.05); }
+.about-hero-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--ink) 0%, transparent 20%); }
+.about-story { padding: 8rem 4rem; display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; border-top: 1px solid rgba(255,255,255,0.05); }
+.about-story-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: 2rem; }
+.about-story-text h2 em { font-style: italic; color: var(--warm); }
+.about-story-text p { font-size: 0.85rem; line-height: 2.1; color: var(--muted); margin-bottom: 1.5rem; max-width: 580px; }
+.about-values { padding: 8rem 4rem; background: #0d0c0a; border-top: 1px solid rgba(255,255,255,0.05); }
+.about-values-header { margin-bottom: 5rem; }
+.about-values-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3.5rem); font-weight: 300; }
+.about-values-header h2 em { font-style: italic; color: var(--warm); }
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+.value-item { display: flex; flex-direction: column; gap: 1rem; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.3s, background 0.3s; }
+.value-item:hover { border-color: rgba(200,169,110,0.2); background: rgba(200,169,110,0.02); }
+.value-icon { font-size: 1.5rem; color: var(--warm); }
+.value-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; }
+.value-item p { font-size: 0.78rem; color: var(--muted); line-height: 1.9; }
+.about-mission { padding: 8rem 4rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+.about-mission blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 300; font-style: italic; line-height: 1.4; max-width: 800px; margin: 0 auto 2rem; }
+.about-mission cite { font-family: 'Jost', sans-serif; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--warm); text-transform: uppercase; font-style: normal; }
+.about-cta { padding: 8rem 4rem; background: #0d0c0a; display: flex; justify-content: space-between; align-items: center; gap: 4rem; border-top: 1px solid rgba(255,255,255,0.05); }
+.about-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; }
+.about-cta h2 em { font-style: italic; color: var(--warm); }
+.about-cta-btns { display: flex; gap: 1.5rem; align-items: center; flex-shrink: 0; }
+</style>
+
+<div class="about-page">
+  <div class="about-hero">
+    <div class="about-hero-content reveal">
+      <span class="section-label">{{ section.settings.label }}</span>
+      <h1>{{ section.settings.hero_heading }} <em>{{ section.settings.hero_heading_em }}</em></h1>
+      <p>{{ section.settings.hero_subheading }}</p>
+      <a href="{{ routes.collections_url }}" class="btn-primary" style="width:fit-content;">Shop Collection</a>
+    </div>
+    <div class="about-hero-img">
+      {% if section.settings.hero_image %}
+        <img src="{{ section.settings.hero_image | image_url: width: 1000 }}" alt="About Angles Apparel">
+      {% else %}
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1000&q=85&auto=format&fit=crop" alt="About Angles Apparel">
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="about-story">
+    <div><span class="section-label reveal">Our Story</span></div>
+    <div class="about-story-text">
+      <h2 class="reveal">{{ section.settings.story_heading }} <em>{{ section.settings.story_heading_em }}</em></h2>
+      <p class="reveal reveal-delay-1">{{ section.settings.story_p1 }}</p>
+      <p class="reveal reveal-delay-2">{{ section.settings.story_p2 }}</p>
+      <p class="reveal reveal-delay-3">{{ section.settings.story_p3 }}</p>
+    </div>
+  </div>
+
+  <div class="about-values">
+    <div class="about-values-header reveal">
+      <span class="section-label">What We Stand For</span>
+      <h2>Our <em>Values</em></h2>
+    </div>
+    <div class="values-grid">
+      {% for block in section.blocks %}
+        <div class="value-item reveal reveal-delay-{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <span class="value-icon">{{ block.settings.icon }}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.body }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="about-mission">
+    <blockquote class="reveal">{{ section.settings.mission_quote }}</blockquote>
+    <cite class="reveal reveal-delay-1">{{ section.settings.mission_cite }}</cite>
+  </div>
+
+  <div class="about-cta reveal">
+    <h2>Ready to move with <em>intention?</em></h2>
+    <div class="about-cta-btns">
+      <a href="{{ routes.collections_url }}" class="btn-primary">Shop Now</a>
+      <a href="/pages/contact" class="btn-ghost">Contact Us</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Page",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Section Label", "default": "Our Story" },
+    { "type": "text", "id": "hero_heading", "label": "Hero Heading", "default": "Built for those who" },
+    { "type": "text", "id": "hero_heading_em", "label": "Hero Heading Italic", "default": "move with purpose." },
+    { "type": "textarea", "id": "hero_subheading", "label": "Hero Subheading", "default": "Angles Apparel is a premium athletic lifestyle brand engineered at the intersection of performance and editorial design." },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero Image" },
+    { "type": "text", "id": "story_heading", "label": "Story Heading", "default": "Where precision" },
+    { "type": "text", "id": "story_heading_em", "label": "Story Heading Italic", "default": "meets movement." },
+    { "type": "textarea", "id": "story_p1", "label": "Story Paragraph 1", "default": "Angles Apparel was founded on a single belief: that the clothes you train in should be as considered as the life you build outside the gym. We were tired of choosing between performance and style — so we stopped choosing." },
+    { "type": "textarea", "id": "story_p2", "label": "Story Paragraph 2", "default": "Every piece we create goes through two years of research and development before it reaches you. We work with elite fabric mills across Europe and Japan to source textiles that move with the body, not against it." },
+    { "type": "textarea", "id": "story_p3", "label": "Story Paragraph 3", "default": "Today, Angles Apparel is worn by athletes, creatives, and everyday people who believe that how you show up matters. We're just here to make sure you look the part." },
+    { "type": "textarea", "id": "mission_quote", "label": "Mission Quote", "default": "We don't make clothes for the gym. We make clothes for the person you become when you leave it." },
+    { "type": "text", "id": "mission_cite", "label": "Quote Attribution", "default": "— Angles Apparel, Est. 2024" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "◈" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Precision" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "Every seam, fabric, and silhouette is considered. We sweat the details so you don't have to." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Page",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "◈", "title": "Precision", "body": "Every seam, fabric, and silhouette is considered. We sweat the details so you don't have to." } },
+        { "type": "value", "settings": { "icon": "◇", "title": "Performance", "body": "Built for movement first. Our fabrics are tested by athletes and refined until they disappear on the body." } },
+        { "type": "value", "settings": { "icon": "◈", "title": "Sustainability", "body": "We source responsibly and build to last. Quality over quantity — pieces designed to outlast trends." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
