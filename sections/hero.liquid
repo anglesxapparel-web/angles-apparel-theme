@@ -52,6 +52,7 @@
   align-items: center;
   opacity: 0;
   animation: fadeUp 1s ease 0.9s forwards;
+  flex-wrap: wrap;
 }
 .hero-right {
   position: relative;
@@ -109,6 +110,39 @@
 }
 .scroll-ind span { font-size: 0.55rem; letter-spacing: 0.25em; color: var(--muted); writing-mode: vertical-lr; text-transform: uppercase; }
 .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--warm), transparent); animation: scrollPulse 2s ease infinite; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    position: relative;
+  }
+  .hero-right {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-img-wrap::after {
+    background: linear-gradient(to top, var(--ink) 30%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.4) 100%);
+  }
+  .hero-left {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 2rem 5rem;
+    justify-content: flex-end;
+    min-height: 100vh;
+  }
+  .hero-title {
+    font-size: clamp(3rem, 12vw, 5rem);
+    margin-bottom: 1.5rem;
+  }
+  .hero-sub { max-width: 100%; margin-bottom: 2.5rem; }
+  .hero-btns { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .btn-primary { width: 100%; text-align: center; }
+  .hero-accent { left: 2rem; bottom: 5%; }
+  .scroll-ind { display: none; }
+}
 </style>
 
 <section class="hero">
@@ -121,8 +155,16 @@
     </h1>
     <p class="hero-sub">{{ section.settings.subtitle }}</p>
     <div class="hero-btns">
-      <a href="{{ section.settings.cta_url }}" class="btn-primary">{{ section.settings.cta_text }}</a>
-      <a href="{{ section.settings.secondary_url }}" class="btn-ghost">{{ section.settings.secondary_text }}</a>
+      {% if section.settings.cta_url != blank %}
+        <a href="{{ section.settings.cta_url }}" class="btn-primary">{{ section.settings.cta_text }}</a>
+      {% else %}
+        <a href="{{ routes.collections_url }}" class="btn-primary">{{ section.settings.cta_text }}</a>
+      {% endif %}
+      {% if section.settings.secondary_url != blank %}
+        <a href="{{ section.settings.secondary_url }}" class="btn-ghost">{{ section.settings.secondary_text }}</a>
+      {% else %}
+        <a href="/pages/about-us" class="btn-ghost">{{ section.settings.secondary_text }}</a>
+      {% endif %}
     </div>
     <div class="hero-accent">
       <span>{{ section.settings.accent_text }}</span>
@@ -151,7 +193,7 @@
     { "type": "text", "id": "tag", "label": "Tag Line", "default": "SS 2026 Collection" },
     { "type": "text", "id": "title_line1", "label": "Title Line 1", "default": "Precision" },
     { "type": "text", "id": "title_line2", "label": "Title Line 2 (italic/gold)", "default": "in every" },
-    { "type": "text", "id": "title_line3", "label": "Title Line 3", "default": "angle." },
+    { "type": "text", "id": "title_line3", "label": "Title Line 3", "default": "Angle." },
     { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Engineered for those who move with intention. Where performance architecture meets editorial craft." },
     { "type": "text", "id": "cta_text", "label": "Primary CTA Text", "default": "Explore Collection" },
     { "type": "url", "id": "cta_url", "label": "Primary CTA URL" },

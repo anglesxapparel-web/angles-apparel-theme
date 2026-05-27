@@ -23,6 +23,8 @@
   color: var(--paper);
   text-decoration: none;
   flex-shrink: 0;
+  z-index: 101;
+  position: relative;
 }
 .nav-links {
   display: flex;
@@ -31,7 +33,6 @@
   margin: 0;
   padding: 0;
 }
-.nav-links li { margin: 0; padding: 0; }
 .nav-links a {
   font-family: 'Jost', sans-serif;
   font-size: 0.62rem;
@@ -75,6 +76,83 @@
   white-space: nowrap;
 }
 .nav-cart:hover { opacity: 0.7; }
+
+/* Hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  z-index: 101;
+  position: relative;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--paper);
+  transition: all 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.98);
+  z-index: 99;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.mobile-menu.open {
+  display: flex;
+  opacity: 1;
+}
+.mobile-menu a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--paper);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--warm); }
+.mobile-menu-bottom {
+  position: absolute;
+  bottom: 3rem;
+  display: flex;
+  gap: 2rem;
+}
+.mobile-menu-bottom a {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.15em;
+  color: var(--muted) !important;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    padding: 1.2rem 1.5rem;
+    top: 28px;
+  }
+  .site-header.scrolled { top: 0; }
+  .nav-links { display: none; }
+  .nav-account { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-right { gap: 1rem; }
+}
 </style>
 
 <header class="site-header" id="site-header">
@@ -89,10 +167,45 @@
   </nav>
 
   <div class="nav-right">
-    <a href="{{ section.settings.account_url }}" class="nav-account" target="_blank" rel="noopener">Account</a>
+    <a href="{{ section.settings.account_url }}" class="nav-account">Account</a>
     <a href="{{ routes.cart_url }}" class="nav-cart">Cart ({{ cart.item_count }})</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  {% for link in linklists.main-menu.links %}
+    <a href="{{ link.url }}" class="mobile-link">{{ link.title }}</a>
+  {% endfor %}
+  <div class="mobile-menu-bottom">
+    <a href="{{ section.settings.account_url }}">Account</a>
+    <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+  </div>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+</script>
 
 {% schema %}
 {
@@ -102,8 +215,7 @@
       "type": "text",
       "id": "account_url",
       "label": "Account URL",
-      "default": "https://shopify.com/43480285340/account",
-      "info": "Paste your Shopify customer account URL here"
+      "default": "https://shopify.com/43480285340/account"
     }
   ]
 }
