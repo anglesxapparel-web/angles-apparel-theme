@@ -452,3 +452,99 @@ body {
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scrollPulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+  /* Announcement */
+  .announcement-bar { font-size: 0.45rem; padding: 0.6rem 1rem; }
+
+  /* Philosophy */
+  .philosophy { grid-template-columns: 1fr; gap: 2rem; padding: 5rem 2rem; }
+  .stat-row { flex-wrap: wrap; gap: 2rem; }
+
+  /* Featured products */
+  .featured-products { padding: 4rem 1.5rem 5rem; }
+  .featured-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .featured-grid { grid-template-columns: 1fr 1fr; }
+  .featured-grid .product-card:first-child { grid-row: span 1; }
+
+  /* Features strip */
+  .features-strip { grid-template-columns: 1fr 1fr; }
+  .feature-item { padding: 2rem 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+  /* Editorial */
+  .editorial-section { grid-template-columns: 1fr; }
+  .editorial-visual { min-height: 400px; }
+  .editorial-content { padding: 3rem 2rem; }
+
+  /* Collections grid */
+  .collections-grid { grid-template-columns: 1fr 1fr; }
+  .collection-page { padding: 8rem 1.5rem 4rem; }
+
+  /* Collection page */
+  .products-grid-collection { grid-template-columns: 1fr 1fr; }
+
+  /* Product page */
+  .product-page { padding: 8rem 1.5rem 4rem; }
+  .product-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .product-gallery { position: static; }
+
+  /* Cart */
+  .cart-page { padding: 8rem 1.5rem 4rem; }
+  .cart-grid { grid-template-columns: 1fr; }
+  .cart-summary { position: static; }
+  .cart-item { grid-template-columns: 80px 1fr auto; gap: 1rem; }
+
+  /* About */
+  .about-hero { grid-template-columns: 1fr; }
+  .about-hero-img { min-height: 300px; position: relative; }
+  .about-story { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.5rem; }
+  .about-values { padding: 4rem 1.5rem; }
+  .values-grid { grid-template-columns: 1fr; }
+  .about-mission { padding: 4rem 1.5rem; }
+  .about-cta { flex-direction: column; padding: 4rem 1.5rem; gap: 2rem; }
+
+  /* Contact */
+  .contact-page { padding: 8rem 1.5rem 4rem; }
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+
+  /* Size guide */
+  .size-guide-page { padding: 8rem 1.5rem 4rem; }
+  .measure-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Info pages */
+  .info-page { padding: 8rem 1.5rem 4rem; }
+  .info-cards { grid-template-columns: 1fr; }
+  .returns-steps { grid-template-columns: 1fr; }
+
+  /* Sustainability */
+  .sustain-hero { grid-template-columns: 1fr; }
+  .sustain-pillars { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+  .sustain-stat-row { flex-wrap: wrap; gap: 2rem; padding: 4rem 1.5rem; }
+
+  /* Newsletter */
+  .newsletter-section { flex-direction: column; padding: 4rem 1.5rem; }
+  .newsletter-form-wrap { max-width: 100%; }
+
+  /* Footer */
+  .site-footer { padding: 4rem 1.5rem 2rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-brand { grid-column: span 2; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+
+  /* FAQ */
+  .faq-page { padding: 8rem 1.5rem 4rem; }
+
+  /* Shipping/Returns */
+  .sustain-hero-content { padding: 4rem 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .featured-grid { grid-template-columns: 1fr; }
+  .collections-grid { grid-template-columns: 1fr; }
+  .products-grid-collection { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: span 1; }
+  .measure-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
