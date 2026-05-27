@@ -5,7 +5,7 @@
     <div class="product-gallery reveal">
       <div class="product-gallery-main">
         {% if product.featured_image %}
-          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" id="main-product-img">
+          <img src="{{ product.featured_image | image_url: width: 1500 }}" alt="{{ product.title }}" id="main-product-img">
         {% else %}
           <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="{{ product.title }}" id="main-product-img">
         {% endif %}
@@ -14,7 +14,7 @@
         <div class="product-gallery-thumbs">
           {% for image in product.images %}
             <div class="product-gallery-thumb {% if forloop.first %}active{% endif %}">
-              <img src="{{ image | image_url: width: 200 }}" alt="{{ product.title }} - image {{ forloop.index }}" loading="lazy">
+              <img src="{{ image | image_url: width: 600 }}" alt="{{ product.title }} - image {{ forloop.index }}" loading="lazy">
             </div>
           {% endfor %}
         </div>
