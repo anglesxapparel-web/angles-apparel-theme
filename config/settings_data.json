@@ -81,8 +81,8 @@
         "settings": {
           "overlay_word": "Studio",
           "label": "The Studio Collection",
-          "heading": "Crafted for the\nspace between\nintensity & elegance.",
-          "heading_em": "space between intensity & elegance.",
+          "heading": "Crafted for the space between intensity & elegance.",
+          "heading_em": "",
           "body": "Studio is our most versatile line — a seamless transition from movement to moment. Designed for those who take their mornings seriously and their evenings in stride.",
           "cta_text": "Discover Studio",
           "cta_url": ""
