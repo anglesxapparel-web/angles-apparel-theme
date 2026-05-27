@@ -28,9 +28,9 @@
       {% unless collection.handle == 'frontpage' %}
         <a href="{{ collection.url }}" class="collection-card reveal reveal-delay-{{ forloop.index0 | modulo: 3 }}">
           {% if collection.featured_image %}
-            <img src="{{ collection.featured_image | image_url: width: 800 }}" alt="{{ collection.title }}" loading="lazy">
+            <img src="{{ collection.featured_image | image_url: width: 1500 }}" alt="{{ collection.title }}" loading="lazy">
           {% elsif collection.products.first and collection.products.first.featured_image %}
-            <img src="{{ collection.products.first.featured_image | image_url: width: 800 }}" alt="{{ collection.title }}" loading="lazy">
+            <img src="{{ collection.products.first.featured_image | image_url: width: 1500 }}" alt="{{ collection.title }}" loading="lazy">
           {% else %}
             <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format&fit=crop" alt="{{ collection.title }}" loading="lazy">
           {% endif %}
