@@ -23,7 +23,6 @@
   font-size: 0.75rem;
   color: var(--muted);
   line-height: 1.7;
-  display: none; /* hidden by default, shown by JS */
 }
 .shipping-notice strong { color: var(--paper); font-weight: 400; }
 .in-stock-badge {
@@ -43,22 +42,12 @@
   display: inline-block;
 }
 .size-btn.sold-out { opacity: 0.45; text-decoration: line-through; }
+.stock-info { display: none; }
+.stock-info.active { display: block; }
 </style>
 
-
-
-{% comment %} Build variant data for JS {% endcomment %}
-{% assign variant_data = '' %}
-{% for variant in product.variants %}
-  {% assign qty = variant.inventory_quantity %}
-  {% assign policy = variant.inventory_policy %}
-  {% capture vdata %}"{{ variant.id }}":{"qty":{{ qty }},"policy":"{{ policy }}","title":"{{ variant.title }}"}{% endcapture %}
-  {% unless forloop.last %}
-    {% assign variant_data = variant_data | append: vdata | append: ',' %}
-  {% else %}
-    {% assign variant_data = variant_data | append: vdata %}
-  {% endunless %}
-{% endfor %}
+{% assign made_to_order = product.metafields.custom.made_to_order.value %}
+{% assign first_variant = product.selected_or_first_available_variant %}
 
 <div class="product-page">
   <div class="product-layout">
@@ -87,17 +76,34 @@
       <h1 class="reveal">{{ product.title }}</h1>
       <p class="product-detail-price reveal">{{ product.price | money }}</p>
 
-      <div id="stock-badge" class="in-stock-badge reveal">In Stock — Ready to Ship</div>
-      <div id="shipping-notice" class="shipping-notice">
-        <strong>This item is currently out of stock.</strong> Place your order now and we'll have it made and shipped to you within <strong>1–2 weeks</strong>. You'll receive a confirmation email with tracking once your order is on its way.
-      </div>
+      {% comment %} Render stock info for each variant, show/hide via JS {% endcomment %}
+      {% for variant in product.variants %}
+        {% assign is_first = forloop.first %}
+        {% assign in_stock = false %}
+        {% if variant.available %}
+          {% assign in_stock = true %}
+        {% endif %}
+
+        <div class="stock-info {% if is_first %}active{% endif %}" id="stock-{{ variant.id }}">
+          {% if in_stock %}
+            <div class="in-stock-badge">In Stock — Ready to Ship</div>
+          {% elsif made_to_order == 'true' or made_to_order == 'True' %}
+            <div class="presale-badge">Currently Out of Stock</div>
+            <div class="shipping-notice">
+              <strong>This item is currently out of stock.</strong> Place your order now and we'll have it made and shipped to you within <strong>1–2 weeks</strong>. You'll receive a confirmation email with tracking once your order is on its way.
+            </div>
+          {% else %}
+            <div class="presale-badge">Currently Out of Stock</div>
+          {% endif %}
+        </div>
+      {% endfor %}
 
       {% if product.description != blank %}
         <div class="product-desc reveal reveal-delay-1">{{ product.description }}</div>
       {% endif %}
 
       <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" id="selected-variant" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="id" id="selected-variant" value="{{ first_variant.id }}">
 
         {% unless product.has_only_default_variant %}
           {% for option in product.options_with_values %}
@@ -108,10 +114,9 @@
                   {% assign variant = product.variants | where: 'option1', value | first %}
                   <button
                     type="button"
-                    class="size-btn {% if forloop.first %}active{% endif %} {% if variant.inventory_quantity <= 0 and variant.inventory_policy == 'deny' %}sold-out{% endif %}"
+                    class="size-btn {% if forloop.first %}active{% endif %}"
                     data-variant-id="{{ variant.id }}"
-                    data-qty="{{ variant.inventory_quantity }}"
-                    data-policy="{{ variant.inventory_policy }}"
+                    data-available="{{ variant.available }}"
                   >{{ value }}</button>
                 {% endfor %}
               </div>
@@ -119,8 +124,21 @@
           {% endfor %}
         {% endunless %}
 
-        <div class="product-actions reveal reveal-delay-2">
-          <button type="submit" class="btn-primary" id="add-to-cart-btn">Add to Cart</button>
+        {% comment %} Render add to cart button for each variant {% endcomment %}
+        {% for variant in product.variants %}
+          {% assign is_first = forloop.first %}
+          <div class="stock-info {% if is_first %}active{% endif %}" id="btn-{{ variant.id }}" style="{% unless is_first %}display:none{% endunless %}">
+            {% if variant.available %}
+              <button type="submit" class="btn-primary" onclick="document.getElementById('selected-variant').value='{{ variant.id }}'">Add to Cart</button>
+            {% elsif made_to_order == 'true' or made_to_order == 'True' %}
+              <button type="submit" class="btn-primary" onclick="document.getElementById('selected-variant').value='{{ variant.id }}'">Order Now — Ships in 1–2 Weeks</button>
+            {% else %}
+              <button type="button" class="btn-primary" disabled style="opacity:0.4;cursor:not-allowed;">Out of Stock</button>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <div style="margin-top: 1rem;">
           <a href="{{ routes.collections_url }}" class="btn-ghost">Continue Shopping</a>
         </div>
       </form>
@@ -143,66 +161,25 @@
 </div>
 
 <script>
-  const madeToOrder = "{{ product.metafields.custom.made_to_order.value }}" === "true" || "{{ product.metafields.custom.made_to_order.value }}" === "True";
-
-  fetch('/products/{{ product.handle }}.js')
-    .then(r => r.json())
-    .then(productData => {
-      const variantMap = {};
-      productData.variants.forEach(v => { variantMap[v.id] = v; });
-      document.querySelectorAll('.size-btn').forEach(btn => {
-        const vid = parseInt(btn.dataset.variantId);
-        if (variantMap[vid]) {
-          const qty = variantMap[vid].inventory_quantity;
-          const policy = variantMap[vid].inventory_management;
-          btn.dataset.qty = qty;
-          btn.dataset.policy = policy;
-          if (btn.classList.contains('active')) { updateStockUI(qty, policy); }
-        }
-      });
-    });
-
-  function updateStockUI(qty, policy) {
-    const badge = document.getElementById('stock-badge');
-    const notice = document.getElementById('shipping-notice');
-    const btn = document.getElementById('add-to-cart-btn');
-    const inStock = qty > 0;
-    const canOrder = madeToOrder === true;
-
-    if (inStock) {
-      badge.className = 'in-stock-badge';
-      badge.textContent = 'In Stock — Ready to Ship';
-      notice.style.display = 'none';
-      btn.textContent = 'Add to Cart';
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      btn.style.cursor = 'pointer';
-    } else if (canOrder) {
-      badge.className = 'presale-badge';
-      badge.textContent = 'Currently Out of Stock';
-      notice.style.display = 'block';
-      btn.textContent = 'Order Now — Ships in 1–2 Weeks';
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      btn.style.cursor = 'pointer';
-    } else {
-      badge.className = 'presale-badge';
-      badge.textContent = 'Currently Out of Stock';
-      notice.style.display = 'none';
-      btn.textContent = 'Out of Stock';
-      btn.disabled = true;
-      btn.style.opacity = '0.4';
-      btn.style.cursor = 'not-allowed';
-    }
-  }
-
   document.querySelectorAll('.size-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      const variantId = btn.dataset.variantId;
+
       document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const variantInput = document.getElementById('selected-variant');
-      if (variantInput && btn.dataset.variantId) variantInput.value = btn.dataset.variantId;
-      updateStockUI(parseInt(btn.dataset.qty), btn.dataset.policy);
+
+      document.getElementById('selected-variant').value = variantId;
+
+      document.querySelectorAll('.stock-info').forEach(el => {
+        el.classList.remove('active');
+        el.style.display = 'none';
+      });
+
+      const stockEl = document.getElementById('stock-' + variantId);
+      if (stockEl) { stockEl.classList.add('active'); stockEl.style.display = 'block'; }
+
+      const btnEl = document.getElementById('btn-' + variantId);
+      if (btnEl) { btnEl.classList.add('active'); btnEl.style.display = 'block'; }
     });
   });
 
@@ -214,7 +191,4 @@
       thumb.classList.add('active');
     });
   });
-
-  const firstBtn = document.querySelector('.size-btn');
-
 </script>
