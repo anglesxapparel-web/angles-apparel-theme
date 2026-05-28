@@ -145,6 +145,23 @@
 <script>
   const madeToOrder = "{{ product.metafields.custom.made_to_order.value }}" === "true" || "{{ product.metafields.custom.made_to_order.value }}" === "True";
 
+  fetch('/products/{{ product.handle }}.js')
+    .then(r => r.json())
+    .then(productData => {
+      const variantMap = {};
+      productData.variants.forEach(v => { variantMap[v.id] = v; });
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        const vid = parseInt(btn.dataset.variantId);
+        if (variantMap[vid]) {
+          const qty = variantMap[vid].inventory_quantity;
+          const policy = variantMap[vid].inventory_management;
+          btn.dataset.qty = qty;
+          btn.dataset.policy = policy;
+          if (btn.classList.contains('active')) updateStockUI(qty, policy);
+        }
+      });
+    });
+
   function updateStockUI(qty, policy) {
     const badge = document.getElementById('stock-badge');
     const notice = document.getElementById('shipping-notice');
