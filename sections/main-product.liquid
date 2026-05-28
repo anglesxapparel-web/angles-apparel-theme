@@ -83,8 +83,8 @@
         <div class="product-desc reveal reveal-delay-1">{{ product.description }}</div>
       {% endif %}
 
-      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" id="selected-variant" value="{{ product.variants.first.id }}">
+      {% form 'product', product %}
+        <input type="hidden" name="quantity" value="1">
 
         {% unless product.has_only_default_variant %}
           {% for option in product.options_with_values %}
@@ -107,15 +107,23 @@
                   >{{ value }}</button>
                 {% endfor %}
               </div>
+              <select name="id" id="variant-select" style="display:none;">
+                {% for value in option.values %}
+                  {% assign variant = product.variants | where: 'option1', value | first %}
+                  <option value="{{ variant.id }}" {% if forloop.first %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
             {% endif %}
           {% endfor %}
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
         {% endunless %}
 
         <div class="product-actions reveal reveal-delay-2">
           <button type="submit" class="btn-primary" id="add-to-cart-btn">Add to Cart</button>
           <a href="{{ routes.collections_url }}" class="btn-ghost">Continue Shopping</a>
         </div>
-      </form>
+      {% endform %}
 
       <div class="product-divider reveal"></div>
 
@@ -141,7 +149,6 @@
     const badge = document.getElementById('stock-badge');
     const notice = document.getElementById('shipping-notice');
     const btn = document.getElementById('add-to-cart-btn');
-
     if (!isOut) {
       badge.className = 'in-stock-badge';
       badge.textContent = 'In Stock — Ready to Ship';
@@ -164,7 +171,8 @@
     btn.addEventListener('click', () => {
       document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.getElementById('selected-variant').value = btn.dataset.variantId;
+      const select = document.getElementById('variant-select');
+      if (select) select.value = btn.dataset.variantId;
       updateStockUI(btn.dataset.out === 'true');
     });
   });
