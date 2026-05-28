@@ -157,7 +157,7 @@
           const policy = variantMap[vid].inventory_management;
           btn.dataset.qty = qty;
           btn.dataset.policy = policy;
-          if (btn.classList.contains('active')) updateStockUI(qty, policy);
+          if (btn.classList.contains('active')) { updateStockUI(qty, policy); }
         }
       });
     });
@@ -216,5 +216,5 @@
   });
 
   const firstBtn = document.querySelector('.size-btn');
-  if (firstBtn) updateStockUI(parseInt(firstBtn.dataset.qty), firstBtn.dataset.policy);
+
 </script>
