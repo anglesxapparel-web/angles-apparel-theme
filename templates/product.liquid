@@ -45,7 +45,7 @@
 .size-btn.sold-out { opacity: 0.45; text-decoration: line-through; }
 </style>
 
-{% assign made_to_order = product.metafields.custom.made_to_order.value | downcase %}
+
 
 {% comment %} Build variant data for JS {% endcomment %}
 {% assign variant_data = '' %}
@@ -143,7 +143,7 @@
 </div>
 
 <script>
-  const madeToOrder = "{{ made_to_order }}" === "true";
+  const madeToOrder = "{{ product.metafields.custom.made_to_order.value }}" === "true" || "{{ product.metafields.custom.made_to_order.value }}" === "True";
 
   function updateStockUI(qty, policy) {
     const badge = document.getElementById('stock-badge');
