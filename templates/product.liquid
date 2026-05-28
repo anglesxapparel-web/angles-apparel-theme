@@ -1,0 +1,183 @@
+<style>
+.presale-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(200,169,110,0.1);
+  border: 1px solid rgba(200,169,110,0.3);
+  color: var(--warm);
+  font-family: 'Syncopate', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.2rem;
+  width: fit-content;
+}
+.presale-badge::before { content: '◈'; font-size: 0.6rem; }
+.shipping-notice {
+  background: rgba(255,255,255,0.03);
+  border-left: 2px solid var(--warm);
+  border-radius: 0;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.shipping-notice strong { color: var(--paper); font-weight: 400; }
+.in-stock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: #5a9a6e;
+  margin-bottom: 1.5rem;
+}
+.in-stock-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: #5a9a6e;
+  border-radius: 50%;
+  display: inline-block;
+}
+.variant-stock { display: none; }
+.variant-stock.active { display: block; }
+.variant-btn { display: none; }
+.variant-btn.active { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+</style>
+
+{% assign made_to_order = product.metafields.custom.made_to_order.value %}
+
+<div class="product-page">
+  <div class="product-layout">
+
+    <div class="product-gallery reveal">
+      <div class="product-gallery-main">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 1500 }}" alt="{{ product.title }}" id="main-product-img">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1500&q=85&auto=format&fit=crop" alt="{{ product.title }}" id="main-product-img">
+        {% endif %}
+      </div>
+      {% if product.images.size > 1 %}
+        <div class="product-gallery-thumbs">
+          {% for image in product.images %}
+            <div class="product-gallery-thumb {% if forloop.first %}active{% endif %}">
+              <img src="{{ image | image_url: width: 600 }}" alt="{{ product.title }} - image {{ forloop.index }}" loading="lazy">
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="product-details">
+      <span class="product-cat section-label">{{ product.type }}</span>
+      <h1 class="reveal">{{ product.title }}</h1>
+      <p class="product-detail-price reveal">{{ product.price | money }}</p>
+
+      {% for variant in product.variants %}
+        {% assign in_stock = false %}
+        {% if variant.inventory_quantity > 0 %}
+          {% assign in_stock = true %}
+        {% endif %}
+
+        <div class="variant-stock {% if forloop.first %}active{% endif %}" id="stock-{{ variant.id }}">
+          {% if in_stock %}
+            <div class="in-stock-badge">In Stock — Ready to Ship</div>
+          {% elsif made_to_order == 'true' or made_to_order == 'True' %}
+            <div class="presale-badge">Currently Out of Stock</div>
+            <div class="shipping-notice">
+              <strong>This item is currently out of stock.</strong> Place your order now and we'll have it made and shipped to you within <strong>1–2 weeks</strong>. You'll receive a tracking email once your order ships.
+            </div>
+          {% else %}
+            <div class="presale-badge">Currently Out of Stock</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      {% if product.description != blank %}
+        <div class="product-desc reveal reveal-delay-1">{{ product.description }}</div>
+      {% endif %}
+
+      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="selected-variant" value="{{ product.selected_or_first_available_variant.id }}">
+
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            {% if option.name == 'Size' %}
+              <span class="size-label reveal">Select {{ option.name }}</span>
+              <div class="size-grid reveal reveal-delay-1">
+                {% for value in option.values %}
+                  {% assign variant = product.variants | where: 'option1', value | first %}
+                  <button
+                    type="button"
+                    class="size-btn {% if forloop.first %}active{% endif %}"
+                    data-variant-id="{{ variant.id }}"
+                  >{{ value }}</button>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endunless %}
+
+        {% for variant in product.variants %}
+          {% assign in_stock = false %}
+          {% if variant.inventory_quantity > 0 %}
+            {% assign in_stock = true %}
+          {% endif %}
+          <div class="variant-btn {% if forloop.first %}active{% endif %}" id="btn-{{ variant.id }}">
+            {% if in_stock %}
+              <button type="submit" class="btn-primary" onclick="document.getElementById('selected-variant').value='{{ variant.id }}'">Add to Cart</button>
+            {% elsif made_to_order == 'true' or made_to_order == 'True' %}
+              <button type="submit" class="btn-primary" onclick="document.getElementById('selected-variant').value='{{ variant.id }}'">Order Now — Ships in 1–2 Weeks</button>
+            {% else %}
+              <button type="button" class="btn-primary" disabled style="opacity:0.4;cursor:not-allowed;">Out of Stock</button>
+            {% endif %}
+            <a href="{{ routes.collections_url }}" class="btn-ghost">Continue Shopping</a>
+          </div>
+        {% endfor %}
+      </form>
+
+      <div class="product-divider reveal"></div>
+
+      <div class="product-meta reveal reveal-delay-3">
+        <div class="product-meta-item">
+          <span class="product-meta-icon">◈</span>
+          <span class="product-meta-text">Free standard shipping on orders over $150.</span>
+        </div>
+        <div class="product-meta-item">
+          <span class="product-meta-icon">◇</span>
+          <span class="product-meta-text">Free returns within 60 days of purchase.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const variantId = btn.dataset.variantId;
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('selected-variant').value = variantId;
+      document.querySelectorAll('.variant-stock').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.variant-btn').forEach(el => el.classList.remove('active'));
+      const stockEl = document.getElementById('stock-' + variantId);
+      const btnEl = document.getElementById('btn-' + variantId);
+      if (stockEl) stockEl.classList.add('active');
+      if (btnEl) btnEl.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('.product-gallery-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const mainImg = document.getElementById('main-product-img');
+      if (mainImg) mainImg.src = thumb.querySelector('img').src.replace('_600x', '_1500x');
+      document.querySelectorAll('.product-gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+  });
+</script>
