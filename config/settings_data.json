@@ -62,6 +62,14 @@
       "features-strip": {
         "type": "features-strip",
         "blocks": {
+          "feature_REytwN": {
+            "type": "feature",
+            "settings": {
+              "icon": "◈",
+              "title": "Technical Fabric",
+              "body": "Four-way stretch, moisture-wicking performance textiles sourced from elite mills across Europe and Japan."
+            }
+          },
           "feature_Pct6c3": {
             "type": "feature",
             "settings": {
@@ -72,6 +80,7 @@
           }
         },
         "block_order": [
+          "feature_REytwN",
           "feature_Pct6c3"
         ],
         "settings": {}
@@ -79,13 +88,14 @@
       "editorial-feature": {
         "type": "editorial-feature",
         "settings": {
-          "overlay_word": "Studio",
-          "label": "The Studio Collection",
-          "heading": "Crafted for the space between intensity & elegance.",
+          "image": "shopify://shop_images/98FE9DBF-CC68-4A4B-9F3E-5B7055FCF975.jpg",
+          "overlay_word": "Muse",
+          "label": "The Muse Collection",
+          "heading": "Crafted for the space between movement & elegance.Crafted for the space between intensity & elegance.",
           "heading_em": "",
-          "body": "Studio is our most versatile line — a seamless transition from movement to moment. Designed for those who take their mornings seriously and their evenings in stride.",
-          "cta_text": "Discover Studio",
-          "cta_url": ""
+          "body": "Muse is our most elevated line, a wrap-front halter and flared pant designed to move from studio to street without missing a beat.",
+          "cta_text": "Discover Muse",
+          "cta_url": "shopify://collections/the-muse-set"
         }
       },
       "newsletter": {
