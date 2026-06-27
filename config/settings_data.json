@@ -108,9 +108,9 @@
       "featured-products": {
         "type": "featured-products",
         "settings": {
-          "heading": "The Halo",
-          "heading_em": "Drop",
-          "collection": "halo-set"
+          "heading": "The Muse",
+          "heading_em": "Set",
+          "collection": "the-muse-set"
         }
       }
     },
