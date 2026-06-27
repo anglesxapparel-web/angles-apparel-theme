@@ -69,19 +69,10 @@
               "title": "Technical Fabric",
               "body": "Four-way stretch, moisture-wicking performance textiles sourced from elite mills across Europe and Japan."
             }
-          },
-          "feature_Pct6c3": {
-            "type": "feature",
-            "settings": {
-              "icon": "◈",
-              "title": "Technical Fabric",
-              "body": "Four-way stretch, moisture-wicking performance textiles sourced from elite mills across Europe and Japan."
-            }
           }
         },
         "block_order": [
-          "feature_REytwN",
-          "feature_Pct6c3"
+          "feature_REytwN"
         ],
         "settings": {}
       },
@@ -91,7 +82,7 @@
           "image": "shopify://shop_images/98FE9DBF-CC68-4A4B-9F3E-5B7055FCF975.jpg",
           "overlay_word": "Muse",
           "label": "The Muse Collection",
-          "heading": "Crafted for the space between movement & elegance.Crafted for the space between intensity & elegance.",
+          "heading": "Crafted for the space between movement & elegance.",
           "heading_em": "",
           "body": "Muse is our most elevated line, a wrap-front halter and flared pant designed to move from studio to street without missing a beat.",
           "cta_text": "Discover Muse",
